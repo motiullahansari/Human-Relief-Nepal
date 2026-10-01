@@ -52,6 +52,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .form-badge{background:#edf6f5;color:#277875;font-size:10px;font-weight:750;padding:5px 9px;border-radius:6px}
 .form-body{padding:28px}
 .form-group{margin-bottom:20px}
+.other-languages-field{margin-top:14px}
+.status-banner{scroll-margin-top:140px}
 .form-row{display:flex;gap:16px}
 .form-col{flex:1;min-width:0}
 label{display:block;font-weight:650;margin-bottom:6px;font-size:13px;color:var(--ink)}
@@ -574,7 +576,7 @@ footer a[aria-current="page"]{color:#fff;font-weight:700}
             </div>
 
             <div class="form-body">
-              <div id="statusMessage" class="status-banner" role="alert" aria-live="assertive"></div>
+              <div id="statusMessage" class="status-banner" role="alert" aria-live="assertive" tabindex="-1"></div>
 
               <form id="hrnVolunteerForm" novalidate>
                 <!-- Anti-Spam Trap -->
@@ -677,7 +679,12 @@ footer a[aria-current="page"]{color:#fff;font-weight:700}
                     <label class="option-box"><input type="checkbox" name="languages" value="Urdu"> <span data-option-label>Urdu</span></label>
                     <label class="option-box"><input type="checkbox" name="languages" value="Turkish"> <span data-option-label>Turkish</span></label>
                     <label class="option-box"><input type="checkbox" name="languages" value="Arabic"> <span data-option-label>Arabic</span></label>
-                    <label class="option-box"><input type="checkbox" name="languages" value="Other"> <span data-option-label>Other</span></label>
+                    <label class="option-box"><input type="checkbox" id="languageOther" name="languages" value="Other" aria-controls="otherLanguagesField" aria-expanded="false"> <span data-option-label>Other</span></label>
+                  </div>
+                  <div class="other-languages-field" id="otherLanguagesField" hidden>
+                    <label for="otherLanguages"><span data-i18n="otherLanguagesLabel">Which other languages do you speak?</span> <span class="req">*</span></label>
+                    <input type="text" id="otherLanguages" name="otherLanguages" maxlength="200" disabled placeholder="e.g. Maithili, Bhojpuri, French" aria-describedby="otherLanguagesHint">
+                    <p class="hint" id="otherLanguagesHint" data-i18n="otherLanguagesHint">If you speak more than one, separate their names with commas.</p>
                   </div>
                 </div>
 
@@ -1016,7 +1023,7 @@ footer a[aria-current="page"]{color:#fff;font-weight:700}
   // Paste the deployed public Apps Script /exec URL here.
   // Leave empty while preparing the form; this prevents accidental submissions.
   const HRN_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzn3zcwtprclUDfXeRoomoTZrWqZtW2-yjljev6YhCDE1tsx0f5hgmdbb9x_f-FC4UC/exec';
-  const HRN_EXTRA_TRANSLATIONS = {"en": {"receivedTitle": "Application received", "noticeTitle": "Notice", "referenceLabel": "Application reference", "validationMsg": "Please complete all required fields and choose at least one language, area of interest, and availability option.", "notConfiguredMsg": "Applications are not available through this form yet. Please contact HRN.", "consentRequiredMsg": "Please agree to the application consent.", "invalidEmailMsg": "Please enter a valid email address.", "invalidDataMsg": "Please check your entries. A field may be too long or contain an invalid value.", "busyMsg": "The server is busy. Please try again shortly.", "netErrorMsg": "We could not confirm whether your application was received. Your entries remain on this page. Please check your connection and submit again.", "provincePrompt": "Select province", "agePrompt": "Select age group", "choices": {}, "placeholders": {"fullName": "e.g. Ammar Ansari", "email": "ammar.example@gmail.com", "phone": "+977 9800000000", "district": "e.g. Kathmandu, Morang, Kaski", "municipality": "e.g. Kathmandu Metropolitan City", "wardNo": "e.g. 3", "toleStreet": "e.g. Baneshwor, Shanti Marga", "occupation": "e.g. Student, Social Work (optional)", "skills": "Describe your relevant skills or volunteer experience (optional).", "whyHrn": "Tell us why you would like to volunteer with Human Relief Nepal."}}, "ar": {"receivedTitle": "تم استلام الطلب", "noticeTitle": "تنبيه", "referenceLabel": "رقم الطلب", "validationMsg": "يرجى إكمال جميع الحقول المطلوبة واختيار لغة واحدة على الأقل ومجال اهتمام ووقت للتفرغ.", "notConfiguredMsg": "التقديم عبر هذا النموذج غير متاح حاليًا. يرجى التواصل مع HRN.", "consentRequiredMsg": "يرجى الموافقة على استخدام بيانات الطلب.", "invalidEmailMsg": "يرجى إدخال عنوان بريد إلكتروني صالح.", "invalidDataMsg": "يرجى مراجعة البيانات. قد يكون أحد الحقول طويلًا جدًا أو يحتوي على قيمة غير صالحة.", "busyMsg": "الخادم مشغول حاليًا. يرجى المحاولة بعد قليل.", "netErrorMsg": "تعذر التأكد من استلام طلبك. بقيت البيانات في هذه الصفحة. يرجى التحقق من الاتصال وإرسال الطلب مرة أخرى.", "provincePrompt": "اختر الإقليم", "agePrompt": "اختر الفئة العمرية", "choices": {"Koshi Province": "إقليم كوشي", "Madhesh Province": "إقليم ماديش", "Bagmati Province": "إقليم باغماتي", "Gandaki Province": "إقليم غانداكي", "Lumbini Province": "إقليم لومبيني", "Karnali Province": "إقليم كارنالي", "Sudurpashchim Province": "إقليم سودورباشيم", "Under 18": "أقل من 18 سنة", "18–24": "18–24", "25–34": "25–34", "35–44": "35–44", "45 or above": "45 سنة أو أكثر", "Nepali": "النيبالية", "English": "الإنجليزية", "Hindi": "الهندية", "Urdu": "الأردية", "Turkish": "التركية", "Arabic": "العربية", "Other": "أخرى", "In person": "حضوريًا", "Remotely": "عن بُعد", "Either": "كلاهما مناسب", "Weekdays": "أيام الأسبوع", "Weekends": "عطلات نهاية الأسبوع", "Occasional Events": "فعاليات بين الحين والآخر", "Flexible": "مرن"}, "placeholders": {"fullName": "مثال: Ammar Ansari", "email": "ammar.example@gmail.com", "phone": "+977 9800000000", "district": "مثال: كاتماندو، مورانغ، كاسكي", "municipality": "مثال: بلدية كاتماندو", "wardNo": "مثال: 3", "toleStreet": "اكتب اسم الحي أو الشارع", "occupation": "مثال: طالب أو أخصائي اجتماعي (اختياري)", "skills": "اذكر مهاراتك أو خبراتك السابقة في التطوع (اختياري).", "whyHrn": "أخبرنا عن سبب رغبتك في التطوع مع Human Relief Nepal."}}, "tr": {"receivedTitle": "Başvurunuz alındı", "noticeTitle": "Bilgilendirme", "referenceLabel": "Başvuru numarası", "validationMsg": "Lütfen tüm zorunlu alanları doldurun; en az bir dil, ilgi alanı ve uygunluk seçeneği seçin.", "notConfiguredMsg": "Bu form üzerinden henüz başvuru alınamıyor. Lütfen HRN ile iletişime geçin.", "consentRequiredMsg": "Lütfen başvuru bilgilerinizin kullanılmasına onay verin.", "invalidEmailMsg": "Lütfen geçerli bir e-posta adresi girin.", "invalidDataMsg": "Lütfen bilgilerinizi kontrol edin. Bir alan çok uzun olabilir veya geçersiz bir değer içerebilir.", "busyMsg": "Sunucu şu anda meşgul. Lütfen kısa bir süre sonra tekrar deneyin.", "netErrorMsg": "Başvurunuzun alındığını doğrulayamadık. Bilgileriniz bu sayfada duruyor. Lütfen bağlantınızı kontrol edip yeniden gönderin.", "provincePrompt": "Eyalet seçin", "agePrompt": "Yaş grubu seçin", "choices": {"Koshi Province": "Koshi Eyaleti", "Madhesh Province": "Madhesh Eyaleti", "Bagmati Province": "Bagmati Eyaleti", "Gandaki Province": "Gandaki Eyaleti", "Lumbini Province": "Lumbini Eyaleti", "Karnali Province": "Karnali Eyaleti", "Sudurpashchim Province": "Sudurpashchim Eyaleti", "Under 18": "18 yaş altı", "18–24": "18–24", "25–34": "25–34", "35–44": "35–44", "45 or above": "45 yaş ve üzeri", "Nepali": "Nepalce", "English": "İngilizce", "Hindi": "Hintçe", "Urdu": "Urduca", "Turkish": "Türkçe", "Arabic": "Arapça", "Other": "Diğer", "In person": "Yüz yüze", "Remotely": "Uzaktan", "Either": "Her ikisi de uygun", "Weekdays": "Hafta içi", "Weekends": "Hafta sonu", "Occasional Events": "Ara sıra düzenlenen etkinlikler", "Flexible": "Esnek"}, "placeholders": {"fullName": "Örn. Ammar Ansari", "email": "ammar.example@gmail.com", "phone": "+977 9800000000", "district": "Örn. Kathmandu, Morang, Kaski", "municipality": "Örn. Kathmandu Büyükşehir Belediyesi", "wardNo": "Örn. 3", "toleStreet": "Mahalle veya sokak adını yazın", "occupation": "Örn. Öğrenci, sosyal hizmet (isteğe bağlı)", "skills": "İlgili becerilerinizi veya gönüllülük deneyiminizi yazın (isteğe bağlı).", "whyHrn": "Human Relief Nepal ile neden gönüllü olmak istediğinizi yazın."}}};
+  const HRN_EXTRA_TRANSLATIONS = {"en": {"receivedTitle": "Application received", "noticeTitle": "Notice", "referenceLabel": "Application reference", "validationMsg": "Please complete all required fields and choose at least one language, area of interest, and availability option.", "notConfiguredMsg": "Applications are not available through this form yet. Please contact HRN.", "consentRequiredMsg": "Please agree to the application consent.", "invalidEmailMsg": "Please enter a valid email address.", "invalidDataMsg": "Please check your entries. A field may be too long or contain an invalid value.", "busyMsg": "The server is busy. Please try again shortly.", "netErrorMsg": "We could not confirm whether your application was received. Your entries remain on this page. Please check your connection and submit again.", "provincePrompt": "Select province", "agePrompt": "Select age group", "choices": {}, "placeholders": {"fullName": "e.g. Ammar Ansari", "email": "ammar.example@gmail.com", "phone": "+977 9800000000", "district": "e.g. Kathmandu, Morang, Kaski", "municipality": "e.g. Kathmandu Metropolitan City", "wardNo": "e.g. 3", "toleStreet": "e.g. Baneshwor, Shanti Marga", "occupation": "e.g. Student, Social Work (optional)", "skills": "Describe your relevant skills or volunteer experience (optional).", "whyHrn": "Tell us why you would like to volunteer with Human Relief Nepal.", "otherLanguages": "e.g. Maithili, Bhojpuri, French"}, "otherLanguagesLabel": "Which other languages do you speak?", "otherLanguagesHint": "If you speak more than one, separate their names with commas.", "otherLanguagesRequiredMsg": "Please write the other language or languages you speak.", "serviceUnavailableMsg": "The application service is currently unavailable. Your details have not been sent. Please try again later or contact HRN.", "unconfirmedResponseMsg": "We could not confirm whether your application was received. Your entries remain on this page. Please submit again or contact HRN.", "timeoutMsg": "The application service took too long to respond. Your entries remain on this page. Please submit again; the same application reference will be used."}, "ar": {"receivedTitle": "تم استلام الطلب", "noticeTitle": "تنبيه", "referenceLabel": "رقم الطلب", "validationMsg": "يرجى إكمال جميع الحقول المطلوبة واختيار لغة واحدة على الأقل ومجال اهتمام ووقت للتفرغ.", "notConfiguredMsg": "التقديم عبر هذا النموذج غير متاح حاليًا. يرجى التواصل مع HRN.", "consentRequiredMsg": "يرجى الموافقة على استخدام بيانات الطلب.", "invalidEmailMsg": "يرجى إدخال عنوان بريد إلكتروني صالح.", "invalidDataMsg": "يرجى مراجعة البيانات. قد يكون أحد الحقول طويلًا جدًا أو يحتوي على قيمة غير صالحة.", "busyMsg": "الخادم مشغول حاليًا. يرجى المحاولة بعد قليل.", "netErrorMsg": "تعذر التأكد من استلام طلبك. بقيت البيانات في هذه الصفحة. يرجى التحقق من الاتصال وإرسال الطلب مرة أخرى.", "provincePrompt": "اختر الإقليم", "agePrompt": "اختر الفئة العمرية", "choices": {"Koshi Province": "إقليم كوشي", "Madhesh Province": "إقليم ماديش", "Bagmati Province": "إقليم باغماتي", "Gandaki Province": "إقليم غانداكي", "Lumbini Province": "إقليم لومبيني", "Karnali Province": "إقليم كارنالي", "Sudurpashchim Province": "إقليم سودورباشيم", "Under 18": "أقل من 18 سنة", "18–24": "18–24", "25–34": "25–34", "35–44": "35–44", "45 or above": "45 سنة أو أكثر", "Nepali": "النيبالية", "English": "الإنجليزية", "Hindi": "الهندية", "Urdu": "الأردية", "Turkish": "التركية", "Arabic": "العربية", "Other": "أخرى", "In person": "حضوريًا", "Remotely": "عن بُعد", "Either": "كلاهما مناسب", "Weekdays": "أيام الأسبوع", "Weekends": "عطلات نهاية الأسبوع", "Occasional Events": "فعاليات بين الحين والآخر", "Flexible": "مرن"}, "placeholders": {"fullName": "مثال: Ammar Ansari", "email": "ammar.example@gmail.com", "phone": "+977 9800000000", "district": "مثال: كاتماندو، مورانغ، كاسكي", "municipality": "مثال: بلدية كاتماندو", "wardNo": "مثال: 3", "toleStreet": "اكتب اسم الحي أو الشارع", "occupation": "مثال: طالب أو أخصائي اجتماعي (اختياري)", "skills": "اذكر مهاراتك أو خبراتك السابقة في التطوع (اختياري).", "whyHrn": "أخبرنا عن سبب رغبتك في التطوع مع Human Relief Nepal.", "otherLanguages": "مثال: المايثيلية، البوجبورية، الفرنسية"}, "otherLanguagesLabel": "ما اللغات الأخرى التي تتحدثها؟", "otherLanguagesHint": "إذا كنت تتحدث أكثر من لغة، افصل أسماءها بفواصل.", "otherLanguagesRequiredMsg": "يرجى كتابة اللغة أو اللغات الأخرى التي تتحدثها.", "serviceUnavailableMsg": "خدمة التقديم غير متاحة حاليًا. لم تُرسل بياناتك. يرجى المحاولة لاحقًا أو التواصل مع HRN.", "unconfirmedResponseMsg": "تعذر التأكد من استلام طلبك. بقيت البيانات في هذه الصفحة. يرجى إعادة الإرسال أو التواصل مع HRN.", "timeoutMsg": "استغرقت خدمة التقديم وقتًا طويلًا للرد. بقيت بياناتك في هذه الصفحة. يرجى إعادة الإرسال؛ سيُستخدم رقم الطلب نفسه."}, "tr": {"receivedTitle": "Başvurunuz alındı", "noticeTitle": "Bilgilendirme", "referenceLabel": "Başvuru numarası", "validationMsg": "Lütfen tüm zorunlu alanları doldurun; en az bir dil, ilgi alanı ve uygunluk seçeneği seçin.", "notConfiguredMsg": "Bu form üzerinden henüz başvuru alınamıyor. Lütfen HRN ile iletişime geçin.", "consentRequiredMsg": "Lütfen başvuru bilgilerinizin kullanılmasına onay verin.", "invalidEmailMsg": "Lütfen geçerli bir e-posta adresi girin.", "invalidDataMsg": "Lütfen bilgilerinizi kontrol edin. Bir alan çok uzun olabilir veya geçersiz bir değer içerebilir.", "busyMsg": "Sunucu şu anda meşgul. Lütfen kısa bir süre sonra tekrar deneyin.", "netErrorMsg": "Başvurunuzun alındığını doğrulayamadık. Bilgileriniz bu sayfada duruyor. Lütfen bağlantınızı kontrol edip yeniden gönderin.", "provincePrompt": "Eyalet seçin", "agePrompt": "Yaş grubu seçin", "choices": {"Koshi Province": "Koshi Eyaleti", "Madhesh Province": "Madhesh Eyaleti", "Bagmati Province": "Bagmati Eyaleti", "Gandaki Province": "Gandaki Eyaleti", "Lumbini Province": "Lumbini Eyaleti", "Karnali Province": "Karnali Eyaleti", "Sudurpashchim Province": "Sudurpashchim Eyaleti", "Under 18": "18 yaş altı", "18–24": "18–24", "25–34": "25–34", "35–44": "35–44", "45 or above": "45 yaş ve üzeri", "Nepali": "Nepalce", "English": "İngilizce", "Hindi": "Hintçe", "Urdu": "Urduca", "Turkish": "Türkçe", "Arabic": "Arapça", "Other": "Diğer", "In person": "Yüz yüze", "Remotely": "Uzaktan", "Either": "Her ikisi de uygun", "Weekdays": "Hafta içi", "Weekends": "Hafta sonu", "Occasional Events": "Ara sıra düzenlenen etkinlikler", "Flexible": "Esnek"}, "placeholders": {"fullName": "Örn. Ammar Ansari", "email": "ammar.example@gmail.com", "phone": "+977 9800000000", "district": "Örn. Kathmandu, Morang, Kaski", "municipality": "Örn. Kathmandu Büyükşehir Belediyesi", "wardNo": "Örn. 3", "toleStreet": "Mahalle veya sokak adını yazın", "occupation": "Örn. Öğrenci, sosyal hizmet (isteğe bağlı)", "skills": "İlgili becerilerinizi veya gönüllülük deneyiminizi yazın (isteğe bağlı).", "whyHrn": "Human Relief Nepal ile neden gönüllü olmak istediğinizi yazın.", "otherLanguages": "Örn. Maithili, Bhojpuri, Fransızca"}, "otherLanguagesLabel": "Başka hangi dilleri konuşuyorsunuz?", "otherLanguagesHint": "Birden fazla dil konuşuyorsanız adlarını virgülle ayırın.", "otherLanguagesRequiredMsg": "Lütfen konuştuğunuz diğer dil veya dilleri yazın.", "serviceUnavailableMsg": "Başvuru hizmeti şu anda kullanılamıyor. Bilgileriniz gönderilmedi. Lütfen daha sonra tekrar deneyin veya HRN ile iletişime geçin.", "unconfirmedResponseMsg": "Başvurunuzun alındığını doğrulayamadık. Bilgileriniz bu sayfada duruyor. Lütfen yeniden gönderin veya HRN ile iletişime geçin.", "timeoutMsg": "Başvuru hizmetinin yanıt vermesi çok uzun sürdü. Bilgileriniz bu sayfada duruyor. Lütfen yeniden gönderin; aynı başvuru numarası kullanılacak."}};
   Object.keys(HRN_EXTRA_TRANSLATIONS).forEach(lang => {
     Object.assign(volunteerTranslations[lang], HRN_EXTRA_TRANSLATIONS[lang]);
   });
@@ -1491,6 +1498,21 @@ function runNepalClock(){
     const submitBtn = document.getElementById('submitBtn');
     const statusBox = document.getElementById('statusMessage');
     const submissionIdInput = document.getElementById('submissionId');
+    const otherLanguageCheckbox = document.getElementById('languageOther');
+    const otherLanguagesField = document.getElementById('otherLanguagesField');
+    const otherLanguagesInput = document.getElementById('otherLanguages');
+
+    function updateOtherLanguages() {
+      const selected = otherLanguageCheckbox.checked;
+      otherLanguagesField.hidden = !selected;
+      otherLanguagesInput.disabled = !selected;
+      otherLanguagesInput.required = selected;
+      otherLanguageCheckbox.setAttribute('aria-expanded', String(selected));
+      otherLanguagesInput.setCustomValidity('');
+    }
+    otherLanguageCheckbox.addEventListener('change', updateOtherLanguages);
+    otherLanguagesInput.addEventListener('input', () => otherLanguagesInput.setCustomValidity(''));
+    updateOtherLanguages();
 
     if (!submissionIdInput.value) {
       submissionIdInput.value = 'HRN-' + (globalThis.crypto?.randomUUID ? crypto.randomUUID() : Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 10).toUpperCase());
@@ -1498,6 +1520,7 @@ function runNepalClock(){
 
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
+      if (submitBtn.disabled) return;
       hideStatus();
       const t = volunteerTranslations[currentLang] || volunteerTranslations.en;
 
@@ -1507,9 +1530,19 @@ function runNepalClock(){
       const availability = Array.from(document.querySelectorAll('input[name="availability"]:checked')).map(el => el.value);
       const preferredWayEl = document.querySelector('input[name="preferredWay"]:checked');
 
+      const otherLanguages = languages.includes('Other') ? otherLanguagesInput.value.trim() : '';
+      otherLanguagesInput.setCustomValidity('');
+      if (languages.includes('Other') && (!otherLanguages || otherLanguages.length > 200)) {
+        const message = otherLanguages ? t.invalidDataMsg : t.otherLanguagesRequiredMsg;
+        otherLanguagesInput.setCustomValidity(message);
+        showStatus('error', message);
+        otherLanguagesInput.reportValidity();
+        return;
+      }
+
       if (!form.checkValidity() || languages.length === 0 || interests.length === 0 || availability.length === 0 || !preferredWayEl) {
-        form.reportValidity();
         showStatus('error', t.validationMsg);
+        form.reportValidity();
         return;
       }
 
@@ -1532,6 +1565,7 @@ function runNepalClock(){
         ageGroup: document.getElementById('ageGroup').value,
         occupation: document.getElementById('occupation').value.trim(),
         languages: languages,
+        otherLanguages: otherLanguages,
         interests: interests,
         skills: document.getElementById('skills').value.trim(),
         preferredWay: preferredWayEl.value,
@@ -1545,42 +1579,71 @@ function runNepalClock(){
         showStatus('error', t.notConfiguredMsg);
         return;
       }
-      if (submitBtn.disabled) return;
       setSubmitting(true, t.submittingBtn);
+      let applicationRequestStarted = false;
 
       try {
-        // text/plain avoids an application/json CORS preflight.
-        // Keep readable CORS mode: success requires the backend's JSON acknowledgement.
-        const response = await fetch(HRN_APPS_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'cors',
-          credentials: 'omit',
-          redirect: 'follow',
-          headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-          body: JSON.stringify(payload)
-        });
+        // Verify the deployed backend before sending personal details.
+        const health = await requestEndpoint('GET');
+        if (health.success !== true || health.service !== 'hrn-volunteer' || health.apiVersion !== 2) {
+          showStatus('error', t.serviceUnavailableMsg);
+          return;
+        }
 
-        const result = await response.json();
-
-        if (response.ok && result && result.success === true && result.submissionId === payload.submissionId) {
+        applicationRequestStarted = true;
+        const result = await requestEndpoint('POST', payload);
+        // A readable, matching acknowledgement is required; an opaque response is not success.
+        if (result.success === true && result.submissionId === payload.submissionId) {
           form.style.display = 'none';
           showStatus('success', t.successMsg, result.submissionId);
-          window.scrollTo({ top: document.getElementById('application').offsetTop - 30, behavior: 'smooth' });
         } else {
           const errorLabels = {
             REQUIRED_FIELDS: t.validationMsg, CONSENT_REQUIRED: t.consentRequiredMsg,
             INVALID_EMAIL: t.invalidEmailMsg, INVALID_DATA: t.invalidDataMsg,
-            INVALID_ADDRESS: t.invalidAddressMsg,
+            INVALID_ADDRESS: t.invalidAddressMsg, OTHER_LANGUAGE_REQUIRED: t.otherLanguagesRequiredMsg,
             BUSY: t.busyMsg, CONFIGURATION: t.notConfiguredMsg
           };
-          showStatus('error', errorLabels[result?.code] || t.errorMsg);
+          showStatus('error', result.success === true ? t.unconfirmedResponseMsg : (errorLabels[result.code] || t.errorMsg));
         }
       } catch (err) {
-        showStatus('error', t.netErrorMsg);
+        const message = !applicationRequestStarted ? t.serviceUnavailableMsg
+          : err.name === 'AbortError' ? t.timeoutMsg
+          : err.message === 'INVALID_RESPONSE' ? t.unconfirmedResponseMsg : t.netErrorMsg;
+        showStatus('error', message);
       } finally {
-        setSubmitting(false, t.submitBtn);
+        setSubmitting(false, (volunteerTranslations[currentLang] || volunteerTranslations.en).submitBtn);
       }
     });
+
+    async function requestEndpoint(method, payload) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 30000);
+      const options = {
+        method, mode: 'cors', credentials: 'omit', redirect: 'follow', signal: controller.signal
+      };
+      if (method === 'POST') {
+        // text/plain avoids an application/json CORS preflight.
+        options.headers = { 'Content-Type': 'text/plain;charset=UTF-8' };
+        options.body = JSON.stringify(payload);
+      }
+      try {
+        const response = await fetch(HRN_APPS_SCRIPT_URL, options);
+        if (!response.ok) throw new Error('SERVICE_UNAVAILABLE');
+        if (!(response.headers.get('Content-Type') || '').toLowerCase().includes('application/json')) {
+          throw new Error('INVALID_RESPONSE');
+        }
+        let result;
+        try { result = await response.json(); }
+        catch (err) {
+          if (err.name === 'AbortError') throw err;
+          throw new Error('INVALID_RESPONSE');
+        }
+        if (!result || typeof result !== 'object' || Array.isArray(result)) throw new Error('INVALID_RESPONSE');
+        return result;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
 
     function setSubmitting(isLoading, text) {
       submitBtn.disabled = isLoading;
@@ -1620,6 +1683,8 @@ function runNepalClock(){
         note.dir = 'ltr';
         statusBox.append(note);
       }
+      statusBox.scrollIntoView({behavior: 'smooth', block: 'center'});
+      statusBox.focus({preventScroll: true});
     }
 
     function hideStatus() {
