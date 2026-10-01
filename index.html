@@ -846,7 +846,7 @@ html[dir="rtl"] .nepal-clock{direction:rtl}
     </div>
     <div class="nepal-clock" data-nepal-clock data-daypart="day" role="group" aria-label="Nepal time and Bikram Sambat date">
       <span class="nepal-clock-now"><svg class="daypart-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="sun" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></g><g class="moon" stroke="currentColor"><path d="M19.6 14.7A8 8 0 1 1 9.3 4.4a6.3 6.3 0 0 0 10.3 10.3Z"/></g></svg><span class="nepal-clock-label" data-clock-label>Nepal</span><time class="nepal-clock-time" data-clock-time>—</time></span>
-      <span class="nepal-clock-date"><span class="nepal-clock-bs" dir="ltr"><time data-clock-bs-en lang="en">—</time><abbr title="Bikram Sambat (Nepali calendar)">BS</abbr></span><time class="nepal-clock-ne" data-clock-bs-ne lang="ne" dir="ltr">—</time></span>
+      <span class="nepal-clock-date"><span class="nepal-clock-bs" dir="ltr"><time data-clock-bs-en lang="en">—</time><abbr title="Bikram Sambat (Nepali calendar)">BS</abbr></span></span>
     </div>
     <div class="topbar-social" aria-label="Social media and email">
       <a class="instagram" href="https://www.instagram.com/humanreliefnepal" target="_blank" rel="noopener noreferrer" aria-label="Instagram: Human Relief Nepal" title="Instagram">
@@ -919,10 +919,10 @@ html[dir="rtl"] .nepal-clock{direction:rtl}
 <div class="container">
 <div class="section-head">
 <div>
-<div class="eyebrow" data-i18n="ourImpact">Our Impact</div>
+<div class="eyebrow" data-i18n="ourImpact">Our Impact 2026</div>
 <h2 data-i18n="impactTitle">Impact in Numbers</h2>
 </div>
-<p data-i18n="impactP">Our projects support people and families through humanitarian relief and community initiatives in Nepal.</p>
+<p data-i18n="impactP">These figures reflect our work in 2026 only, supporting people and families through humanitarian relief and community initiatives in Nepal.</p>
 </div>
 <div class="stats">
 <div class="stat"><strong data-impact-number="24320" aria-hidden="true">24,320</strong><span class="impact-sr-only" data-impact-a11y-number="24320">24,320</span><span data-i18n="peopleReached">People Reached</span></div>
@@ -1435,9 +1435,9 @@ const translations = {
     "accountability": "Accountability",
     "dignity": "Dignity",
     "sustainability": "Sustainability",
-    "ourImpact": "Our Impact",
+    "ourImpact": "Our Impact 2026",
     "impactTitle": "Impact in Numbers",
-    "impactP": "Our projects support people and families through humanitarian relief and community initiatives in Nepal.",
+    "impactP": "These figures reflect our work in 2026 only, supporting people and families through humanitarian relief and community initiatives in Nepal.",
     "peopleReached": "People Reached",
     "familiesSupported": "Families Supported",
     "projectsCompleted": "Projects Completed",
@@ -1617,9 +1617,9 @@ const translations = {
     "accountability": "المساءلة",
     "dignity": "الكرامة",
     "sustainability": "الاستدامة",
-    "ourImpact": "أثرنا",
+    "ourImpact": "أثرنا في 2026",
     "impactTitle": "الأثر بالأرقام",
-    "impactP": "تدعم مشاريعنا الأفراد والأسر من خلال الإغاثة الإنسانية والمبادرات المجتمعية في نيبال.",
+    "impactP": "تعكس هذه الأرقام أعمالنا في عام 2026 فقط، من خلال دعم الأفراد والأسر بالإغاثة الإنسانية والمبادرات المجتمعية في نيبال.",
     "peopleReached": "شخصًا وصلنا إليهم",
     "familiesSupported": "أسرة دعمناها",
     "projectsCompleted": "مشروعًا منجزًا",
@@ -1799,9 +1799,9 @@ const translations = {
     "accountability": "Hesap Verebilirlik",
     "dignity": "Saygınlık",
     "sustainability": "Sürdürülebilirlik",
-    "ourImpact": "Etkimiz",
+    "ourImpact": "2026 Etkimiz",
     "impactTitle": "Rakamlarla Etki",
-    "impactP": "Projelerimiz, Nepal'de insani yardım ve topluluk girişimleriyle bireylere ve ailelere destek sağlar.",
+    "impactP": "Bu rakamlar yalnızca 2026 yılındaki çalışmalarımızı yansıtır; Nepal'de insani yardım ve topluluk girişimleriyle bireylere ve ailelere destek olduk.",
     "peopleReached": "Ulaşılan Kişiler",
     "familiesSupported": "Desteklenen Aileler",
     "projectsCompleted": "Tamamlanan Projeler",
@@ -2316,13 +2316,13 @@ const hrnClockText={
   tr:{locale:'tr-TR',label:'Nepal',group:'Nepal saati ve Bikram Sambat tarihi',before:'Nepal’de saat şu an ',after:'',ahead:'Nepal saati sizden {d} ileri',behind:'Nepal saati sizden {d} geri'}
 };
 const hrnNepalParts=new Intl.DateTimeFormat('en-US-u-ca-gregory-nu-latn',{
-  timeZone:'Asia/Kathmandu',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'
+  timeZone:'Asia/Kathmandu',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'
 });
 const hrnFormatCache={};
 function hrnCached(key,make){return hrnFormatCache[key]||(hrnFormatCache[key]=make());}
 function hrnNepalNow(now){
   const p=Object.fromEntries(hrnNepalParts.formatToParts(now).map(x=>[x.type,x.value]));
-  const n={year:+p.year,month:+p.month,day:+p.day,hour:+p.hour%24,minute:+p.minute};
+  const n={year:+p.year,month:+p.month,day:+p.day,hour:+p.hour%24,minute:+p.minute,second:+p.second};
   // Kathmandu's UTC offset, derived from the wall clock rather than hard-coded.
   n.offset=Math.round((Date.UTC(n.year,n.month-1,n.day,n.hour,n.minute)-Math.floor(now.getTime()/60000)*60000)/60000);
   return n;
@@ -2346,15 +2346,13 @@ function updateNepalDates(now=new Date()){
   const n=hrnNepalNow(now);
   const pad=v=>String(v).padStart(2,'0');
   const set=(el,v)=>{if(el&&el.textContent!==v)el.textContent=v;};
-  const timeText=hrnCached(t.locale+'t',()=>new Intl.DateTimeFormat(t.locale,{timeZone:'Asia/Kathmandu',hour:'numeric',minute:'2-digit'})).format(now);
+  const timeText=hrnCached(t.locale+'t',()=>new Intl.DateTimeFormat(t.locale,{timeZone:'Asia/Kathmandu',hour:'numeric',minute:'2-digit',second:'2-digit'})).format(now);
   const iso=`${n.year}-${pad(n.month)}-${pad(n.day)}`;
   const zone=`${n.offset<0?'-':'+'}${pad(Math.floor(Math.abs(n.offset)/60))}:${pad(Math.abs(n.offset)%60)}`;
   const diff=n.offset+now.getTimezoneOffset();
   const diffText=diff?t[diff>0?'ahead':'behind'].replace('{d}',hrnDuration(Math.abs(diff),t.locale)):'';
   const bs=hrnAdToBs(n.year,n.month,n.day);
-  const toNe=v=>String(v).replace(/\d/g,d=>'०१२३४५६७८९'[Number(d)]);
   const bsEn=bs?`${bs.day} ${hrnBsMonthsEn[bs.month-1]} ${bs.year}`:'—';
-  const bsNe=bs?`${toNe(bs.day)} ${hrnBsMonths[bs.month-1]} ${toNe(bs.year)}`:'—';
   const bsTitle=bs?`${bs.year}-${pad(bs.month)}-${pad(bs.day)} BS`:'Date outside supported BS calendar range';
   roots.forEach(root=>{
     root.dataset.daypart=(n.hour>=6&&n.hour<18)?'day':'night';
@@ -2365,8 +2363,8 @@ function updateNepalDates(now=new Date()){
     set(root.querySelector('[data-clock-after]'),t.after);
     set(root.querySelector('[data-clock-diff]'),diffText);
     const clock=root.querySelector('[data-clock-time]');
-    if(clock){set(clock,timeText);clock.dateTime=`${iso}T${pad(n.hour)}:${pad(n.minute)}${zone}`;}
-    for(const [sel,text] of [['[data-clock-bs-en]',bsEn],['[data-clock-bs-ne]',bsNe]]){
+    if(clock){set(clock,timeText);clock.dateTime=`${iso}T${pad(n.hour)}:${pad(n.minute)}:${pad(n.second)}${zone}`;}
+    for(const [sel,text] of [['[data-clock-bs-en]',bsEn]]){
       const el=root.querySelector(sel);
       if(!el)continue;
       set(el,text);
@@ -2377,10 +2375,10 @@ function updateNepalDates(now=new Date()){
 }
 let hrnClockTimer;
 function runNepalClock(){
-  // Minutes only, so tick on the minute instead of every second.
+  // Show live seconds and align updates to the next second boundary.
   clearTimeout(hrnClockTimer);
   updateNepalDates();
-  hrnClockTimer=setTimeout(runNepalClock,60000-(Date.now()%60000)+50);
+  hrnClockTimer=setTimeout(runNepalClock,1000-(Date.now()%1000)+25);
 }
 document.addEventListener('DOMContentLoaded',()=>{
   runNepalClock();
