@@ -472,7 +472,7 @@ html[dir="rtl"] .dropdown-menu{left:auto;right:0}
 @media(max-width:640px){
   .nepal-map-legend-wrap{display:none}
   .nepal-map-national{width:50px;height:62px;left:2%;bottom:2%}
-  .nepal-map-selected-province:not([hidden]){display:block;position:absolute;top:5px;right:5px;z-index:1;max-width:65%;padding:6px 10px;border:1px solid #c9e0df;border-radius:999px;background:rgba(255,255,255,.95);color:var(--navy-2);font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+  .nepal-map-selected-province:not([hidden]){display:block;position:static;align-self:flex-start;max-width:100%;padding:6px 10px;border:1px solid #c9e0df;border-radius:999px;background:rgba(255,255,255,.95);color:var(--navy-2);font-size:12px;font-weight:800;white-space:normal;overflow-wrap:anywhere;pointer-events:none}
   html[dir="rtl"] .nepal-map-selected-province{direction:rtl}
 }
 .lang-switcher-floating{position:fixed;z-index:70;top:50%;right:12px;transform:translateY(-50%);display:flex;flex-direction:column;gap:3px;margin:0;padding:5px;border-radius:14px;box-shadow:0 12px 32px rgba(16,59,83,.2)}
@@ -1052,7 +1052,6 @@ SOFTWARE.
   <div class="nepal-map-layout">
     <div class="nepal-map-art">
       <div class="nepal-map-canvas">
-      <span class="nepal-map-selected-province" id="nepal-map-selected-province" hidden aria-hidden="true"></span>
       <button class="nepal-map-national" type="button" aria-label="Show Nepal population" data-i18n-aria-label="mapShowNepal"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 960 1152" aria-hidden="true" focusable="false"><defs><clipPath id="nepal-user-flag-clip"><path d="M0 0 950 592H347l566 560H0Z"/></clipPath><clipPath id="nepal-user-flag-moon"><circle cx="232" cy="374" r="156"/></clipPath></defs><path fill="#003893" d="M0 0 950 592H347l566 560H0Z"/><path fill="#dc143c" d="M34 64 824 560H270l554 564H34Z"/><g fill="#fff"><path d="M76 374A156 156 0 0 0 388 374A193 193 0 0 1 76 374Z"/><path clip-path="url(#nepal-user-flag-moon)" d="M232 346 247 377 273 354 275 389 308 378 297 411 332 413 309 439 340 454 309 469 332 495 297 497 308 530 275 519 273 554 247 531 232 562 217 531 191 554 189 519 156 530 167 497 132 495 155 469 124 454 155 439 132 413 167 411 156 378 189 389 191 354 217 377Z"/><path d="M232 674 258 744 315 696 302 770 376 757 328 814 398 840 328 866 376 923 302 910 315 984 258 936 232 1006 206 936 149 984 162 910 88 923 136 866 66 840 136 814 88 757 162 770 149 696 206 744Z"/></g></svg></button>
       <svg id="nepal-map-svg" class="nepal-map-svg" xmlns="http://www.w3.org/2000/svg" viewBox="20 30 1185 735" role="group" aria-label="Map of Nepal's districts and provinces" data-i18n-aria-label="mapAria">
 <path id="nepal-nawalparasiwest" class="nepal-district" style="--province-color:#9b80c2" d="M578.551,545.754c-1.527,0.624-2.381,2.637-2.151,4.365c1.698,1.813,4.192,1.104,6.403,1.188c-3.398,2.809-2.494,7.798-5.896,10.688c-2.495-0.198-5.104-0.709-7.513,0.396c-1.392,2.101-1.813,5.304-0.396,7.515c1.39,1.188,3.005,2.098,4.593,3.09c-1.503,1.503-2.807,4.195-5.301,3.714c-1.588-0.709-2.807-1.896-4.11-2.892c-4.791-3.997-10.914-5.612-15.984-8.901c-4.706-3.004-9.896-4.903-14.517-7.908c-0.99-7.597-0.794-15.19-1.502-22.705c1.105-2.41,2.409-5.301,5.104-5.896c4.706-1.307,8.703-4.11,12.896-6.293c3.089-1.814,5.414-6.013,9.41-5.612c4.763,0.453,9.524,0.142,14.23,0.396L578.551,545.754z" data-district="Nawalparasi West" data-province="Lumbini" data-population="386868" tabindex="0" role="button" aria-pressed="false" aria-label="Nawalparasi West, Lumbini"><title>Nawalparasi West — Lumbini</title></path>
@@ -1145,6 +1144,7 @@ SOFTWARE.
       </div>
     </div>
     <div class="nepal-map-side">
+      <span class="nepal-map-selected-province" id="nepal-map-selected-province" hidden aria-hidden="true"></span>
       <div class="nepal-map-filters">
       <div><label class="nepal-map-select-label" for="nepal-province-select" data-i18n="mapProvince">Province</label><select class="nepal-map-select" id="nepal-province-select" aria-label="Choose a province" data-i18n-aria-label="mapChooseProvince"><option value="" selected data-i18n="mapChooseProvince">Choose a province</option><option value="Koshi">Koshi</option><option value="Madhesh">Madhesh</option><option value="Bagmati">Bagmati</option><option value="Gandaki">Gandaki</option><option value="Lumbini">Lumbini</option><option value="Karnali">Karnali</option><option value="Sudurpashchim">Sudurpashchim</option></select></div>
       <div><label class="nepal-map-select-label" for="nepal-district-select" data-i18n="mapDistrict">District</label><select class="nepal-map-select" id="nepal-district-select" aria-label="Choose a district" data-i18n-aria-label="mapChoose">
