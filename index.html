@@ -334,8 +334,7 @@ html[dir="rtl"] .dropdown-menu{left:auto;right:0}
   .brand-logo-mobile{display:block!important;width:52px!important;height:auto!important;max-width:none!important;object-fit:contain}
 }
 @media(max-width:760px){
-  .topbar{display:none!important}
-  .footer-logo-desktop{display:none!important}
+    .footer-logo-desktop{display:none!important}
   .footer-logo-mobile{display:block!important;width:118px!important;height:auto!important;background:#fff;border-radius:12px;padding:7px;margin:0 auto 12px}
   .footer-logo-link{display:block;text-align:center}
   .footer-bottom{display:none!important}
@@ -794,21 +793,41 @@ html[dir="rtl"] h2{line-height:1.35}
 .nepal-valley-title{width:max-content;text-align:center}
 html[dir="rtl"] .nepal-valley-quick{left:63.5%;right:auto}
 
-/* Nepal live time above the same BS date in Nepali and English. */
-.nepal-date-strip{background:#f0f7f7;border-bottom:1px solid #dce9e9;color:var(--navy-2)}
-.nepal-date-strip .container{display:flex;flex-direction:column;align-items:center;gap:7px;padding-block:10px}
-.nepal-date-heading{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;font-weight:650}
-.nepal-date-heading svg{width:16px;height:16px;color:var(--teal);flex-shrink:0}
-.nepal-live-time{font-size:16px;line-height:1.3;font-weight:800;letter-spacing:.04em;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
-.nepal-date-values{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;direction:ltr;width:min(100%,410px)}
-.nepal-date-item{display:flex;align-items:center;justify-content:center;gap:6px;padding:5px 10px;background:#fff;border:1px solid #dce9e9;border-radius:8px;line-height:1.5;min-width:0}
-.nepal-date-item abbr{font-size:9px;letter-spacing:.04em;font-weight:800;text-decoration:none;color:var(--teal);flex-shrink:0}
-.nepal-date-item time{font-size:12px;font-weight:650;font-variant-numeric:tabular-nums;text-align:center;overflow-wrap:anywhere}
+/* Nepal clock: glanceable time + Bikram Sambat date in the top bar,
+   and the visitor's time difference next to the contact links. */
+.nepal-clock{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:3px 12px;min-width:0;color:#dbe9ef;font-size:13px;line-height:1.35}
+html[dir="rtl"] .nepal-clock{direction:rtl}
+.nepal-clock-now,.nepal-clock-date{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.nepal-clock-date{position:relative;padding-inline-start:13px}
+.nepal-clock-date:before{content:"";position:absolute;inset-inline-start:0;top:50%;width:1px;height:14px;margin-top:-7px;background:rgba(255,255,255,.24)}
+.nepal-clock-label{color:#a9c6d1;font-weight:500}
+.nepal-clock-time{color:#fff;font-weight:700;font-variant-numeric:tabular-nums;unicode-bidi:isolate}
+.nepal-clock-bs{display:inline-flex;align-items:baseline;gap:4px;unicode-bidi:isolate}
+.nepal-clock-bs abbr{font-size:10px;font-weight:700;color:#8be0df;text-decoration:none;cursor:help}
+.nepal-clock-ne{color:#b9d3dc;unicode-bidi:isolate}
+.daypart-icon{width:15px;height:15px;flex:0 0 15px;display:block}
+.daypart-icon .sun{color:#f4c46a}
+.daypart-icon .moon{color:#c3dbe4;display:none}
+[data-daypart="night"] .daypart-icon .sun{display:none}
+[data-daypart="night"] .daypart-icon .moon{display:inline}
+.footer-clock{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 12px;margin:-6px 0 18px;color:#bcd0d9;font-size:14px;line-height:1.45;text-align:center}
+.footer-clock-now{display:inline-flex;align-items:center;gap:8px}
+.footer-clock time{color:#fff;font-weight:700;font-variant-numeric:tabular-nums;unicode-bidi:isolate}
+.footer-clock-diff{position:relative;padding-inline-start:13px;color:#9fb9c4}
+.footer-clock-diff:before{content:"";position:absolute;inset-inline-start:0;top:50%;width:1px;height:14px;margin-top:-7px;background:rgba(255,255,255,.2)}
+.footer-clock-diff:empty{display:none}
+@media(max-width:760px){
+  /* Phones: the bar keeps only the clock (WhatsApp floats, contacts sit in the footer) and scrolls away. */
+  .topbar{position:static}
+  .topbar .container{padding:6px 0}
+  .topbar-phone,.topbar-social{display:none!important}
+  .nepal-clock{font-size:12px;gap:2px 10px}
+  .nepal-clock-date{padding-inline-start:11px}
+}
 @media(max-width:640px){
- .nepal-date-strip .container{padding-block:9px}
- .nepal-date-values{gap:6px}
- .nepal-date-item{padding:5px 6px;gap:4px}
- .nepal-date-item time{font-size:11px}
+  .footer-clock{flex-direction:column;gap:1px;font-size:13px;margin:-8px 0 14px}
+  .footer-clock-diff{padding:0}
+  .footer-clock-diff:before{display:none}
 }
 
 </style>
@@ -825,7 +844,10 @@ html[dir="rtl"] .nepal-valley-quick{left:63.5%;right:auto}
       </a>
       <a class="topbar-phone-number" href="tel:+9779705224145">+977 9705224145</a>
     </div>
-    <span class="topbar-tagline" data-i18n="topbarTagline">Human Relief Nepal · Relief with Dignity</span>
+    <div class="nepal-clock" data-nepal-clock data-daypart="day" role="group" aria-label="Nepal time and Bikram Sambat date">
+      <span class="nepal-clock-now"><svg class="daypart-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="sun" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></g><g class="moon" stroke="currentColor"><path d="M19.6 14.7A8 8 0 1 1 9.3 4.4a6.3 6.3 0 0 0 10.3 10.3Z"/></g></svg><span class="nepal-clock-label" data-clock-label>Nepal</span><time class="nepal-clock-time" data-clock-time>—</time></span>
+      <span class="nepal-clock-date"><span class="nepal-clock-bs" dir="ltr"><time data-clock-bs-en lang="en">—</time><abbr title="Bikram Sambat (Nepali calendar)">BS</abbr></span><time class="nepal-clock-ne" data-clock-bs-ne lang="ne" dir="ltr">—</time></span>
+    </div>
     <div class="topbar-social" aria-label="Social media and email">
       <a class="instagram" href="https://www.instagram.com/humanreliefnepal" target="_blank" rel="noopener noreferrer" aria-label="Instagram: Human Relief Nepal" title="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -871,20 +893,6 @@ html[dir="rtl"] .nepal-valley-quick{left:63.5%;right:auto}
 <div aria-label="Language selector" class="lang-switcher"><button class="lang-btn" data-lang="en" onclick="setLanguage('en')" type="button">EN</button><button class="lang-btn" data-lang="ar" onclick="setLanguage('ar')" type="button">العربية</button><button class="lang-btn" data-lang="tr" onclick="setLanguage('tr')" type="button">TR</button></div><button aria-controls="main-menu" aria-expanded="false" aria-label="Open menu" class="mobile-toggle" data-i18n-aria-label="openMenuAria" onclick="toggleMobileMenu()">☰</button>
 </div>
 </header>
-<div class="nepal-date-strip" role="group" aria-label="Nepal time and Bikram Sambat date" id="nepal-date-strip">
- <div class="container">
-  <div class="nepal-date-heading">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-   <span id="nepal-date-zone">Nepal time</span>
-   <time class="nepal-live-time" id="nepal-live-time" lang="en" dir="ltr">—</time>
-  </div>
-  <div class="nepal-date-values">
-   <div class="nepal-date-item"><time id="nepal-date-bs" lang="ne" dir="ltr">—</time><abbr title="Bikram Sambat — Nepali calendar">BS</abbr></div>
-   <div class="nepal-date-item"><time id="nepal-date-bs-en" lang="en" dir="ltr">—</time><abbr title="Bikram Sambat — Nepali calendar">BS</abbr></div>
-  </div>
- </div>
-</div>
-
 <div aria-label="Language selector" class="lang-switcher lang-switcher-floating" id="floating-language-switcher" hidden><button class="lang-btn" data-lang="en" onclick="setLanguage('en')" type="button">EN</button><button class="lang-btn" data-lang="ar" onclick="setLanguage('ar')" type="button">العربية</button><button class="lang-btn" data-lang="tr" onclick="setLanguage('tr')" type="button">TR</button></div>
 <a class="floating-whatsapp" id="floating-whatsapp" draggable="false" href="https://wa.me/9779705224145" target="_blank" rel="noopener noreferrer" aria-label="Chat with Human Relief Nepal on WhatsApp" data-i18n-aria-label="whatsappChat" title="WhatsApp" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a9.8 9.8 0 0 0-8.47 14.73L2.2 21.6l4.98-1.3A9.98 9.98 0 1 0 12 2Zm0 17.8a7.8 7.8 0 0 1-3.98-1.08l-.29-.17-2.95.77.79-2.87-.19-.3A7.8 7.8 0 1 1 12 19.8Zm4.28-5.83c-.23-.12-1.39-.69-1.6-.77-.22-.08-.38-.12-.54.12-.16.23-.62.77-.76.93-.14.16-.28.18-.51.06-.24-.12-1-.37-1.9-1.17a7.1 7.1 0 0 1-1.32-1.64c-.14-.24-.02-.36.1-.48.11-.11.24-.28.35-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.7 2.59 4.11 3.63.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.39-.57 1.59-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.46-.28Z"/></svg></a>
 <main>
@@ -1342,6 +1350,7 @@ SOFTWARE.
 
 <div class="footer-contact" id="contact" aria-label="Contact Human Relief Nepal">
   <div class="footer-contact-title" data-i18n="contact">Contact</div>
+  <p class="footer-clock" data-nepal-clock data-daypart="day"><span class="footer-clock-now"><svg class="daypart-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="sun" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></g><g class="moon" stroke="currentColor"><path d="M19.6 14.7A8 8 0 1 1 9.3 4.4a6.3 6.3 0 0 0 10.3 10.3Z"/></g></svg><span><span data-clock-before>It’s </span><time data-clock-time>—</time><span data-clock-after> in Nepal</span></span></span><span class="footer-clock-diff" data-clock-diff></span></p>
   <div class="footer-contact-links">
     <a class="footer-contact-link whatsapp" href="https://wa.me/9779705224145" target="_blank" rel="noopener" aria-label="WhatsApp Human Relief Nepal">
       <span class="footer-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.84 9.84 0 0 0-8.4 14.95L2.2 22l5.18-1.36A9.9 9.9 0 1 0 12.04 2Zm0 17.98a8.08 8.08 0 0 1-4.12-1.13l-.3-.18-3.07.81.82-2.99-.2-.31a8.08 8.08 0 1 1 6.87 3.8Zm4.43-6.05c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.95-1.2-.72-.64-1.21-1.44-1.35-1.68-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.39 1.37.5.58.18 1.1.16 1.51.1.46-.07 1.43-.58 1.63-1.15.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg></span>
@@ -2288,7 +2297,6 @@ SOFTWARE.
 const hrnBsCalendar = {"1970":[31,31,32,31,31,31,30,29,30,29,30,30],"1971":[31,31,32,31,32,30,30,29,30,29,30,30],"1972":[31,32,31,32,31,30,30,30,29,29,30,31],"1973":[30,32,31,32,31,30,30,30,29,30,29,31],"1974":[31,31,32,31,31,31,30,29,30,29,30,30],"1975":[31,31,32,32,31,30,30,29,30,29,30,30],"1976":[31,32,31,32,31,30,30,30,29,29,30,31],"1977":[30,32,31,32,31,31,29,30,30,29,29,31],"1978":[31,31,32,31,31,31,30,29,30,29,30,30],"1979":[31,31,32,32,31,30,30,29,30,29,30,30],"1980":[31,32,31,32,31,30,30,30,29,29,30,31],"1981":[31,31,31,32,31,31,29,30,30,29,30,30],"1982":[31,31,32,31,31,31,30,29,30,29,30,30],"1983":[31,31,32,32,31,30,30,29,30,29,30,30],"1984":[31,32,31,32,31,30,30,30,29,29,30,31],"1985":[31,31,31,32,31,31,29,30,30,29,30,30],"1986":[31,31,32,31,31,31,30,29,30,29,30,30],"1987":[31,32,31,32,31,30,30,29,30,29,30,30],"1988":[31,32,31,32,31,30,30,30,29,29,30,31],"1989":[31,31,31,32,31,31,30,29,30,29,30,30],"1990":[31,31,32,31,31,31,30,29,30,29,30,30],"1991":[31,32,31,32,31,30,30,30,29,29,30,30],"1992":[31,32,31,32,31,30,30,30,29,30,29,31],"1993":[31,31,31,32,31,31,30,29,30,29,30,30],"1994":[31,31,32,31,31,31,30,29,30,29,30,30],"1995":[31,32,31,32,31,30,30,30,29,29,30,30],"1996":[31,32,31,32,31,30,30,30,29,30,29,31],"1997":[31,31,32,31,31,31,30,29,30,29,30,30],"1998":[31,31,32,31,31,31,30,29,30,29,30,30],"1999":[31,32,31,32,31,30,30,30,29,29,30,31],"2000":[30,32,31,32,31,30,30,30,29,30,29,31],"2001":[31,31,32,31,31,31,30,29,30,29,30,30],"2002":[31,31,32,32,31,30,30,29,30,29,30,30],"2003":[31,32,31,32,31,30,30,30,29,29,30,31],"2004":[30,32,31,32,31,30,30,30,29,30,29,31],"2005":[31,31,32,31,31,31,30,29,30,29,30,30],"2006":[31,31,32,32,31,30,30,29,30,29,30,30],"2007":[31,32,31,32,31,30,30,30,29,29,30,31],"2008":[31,31,31,32,31,31,29,30,30,29,29,31],"2009":[31,31,32,31,31,31,30,29,30,29,30,30],"2010":[31,31,32,32,31,30,30,29,30,29,30,30],"2011":[31,32,31,32,31,30,30,30,29,29,30,31],"2012":[31,31,31,32,31,31,29,30,30,29,30,30],"2013":[31,31,32,31,31,31,30,29,30,29,30,30],"2014":[31,31,32,32,31,30,30,29,30,29,30,30],"2015":[31,32,31,32,31,30,30,30,29,29,30,31],"2016":[31,31,31,32,31,31,29,30,30,29,30,30],"2017":[31,31,32,31,31,31,30,29,30,29,30,30],"2018":[31,32,31,32,31,30,30,29,30,29,30,30],"2019":[31,32,31,32,31,30,30,30,29,30,29,31],"2020":[31,31,31,32,31,31,30,29,30,29,30,30],"2021":[31,31,32,31,31,31,30,29,30,29,30,30],"2022":[31,32,31,32,31,30,30,30,29,29,30,30],"2023":[31,32,31,32,31,30,30,30,29,30,29,31],"2024":[31,31,31,32,31,31,30,29,30,29,30,30],"2025":[31,31,32,31,31,31,30,29,30,29,30,30],"2026":[31,32,31,32,31,30,30,30,29,29,30,31],"2027":[30,32,31,32,31,30,30,30,29,30,29,31],"2028":[31,31,32,31,31,31,30,29,30,29,30,30],"2029":[31,31,32,31,32,30,30,29,30,29,30,30],"2030":[31,32,31,32,31,30,30,30,29,29,30,31],"2031":[30,32,31,32,31,30,30,30,29,30,29,31],"2032":[31,31,32,31,31,31,30,29,30,29,30,30],"2033":[31,31,32,32,31,30,30,29,30,29,30,30],"2034":[31,32,31,32,31,30,30,30,29,29,30,31],"2035":[30,32,31,32,31,31,29,30,30,29,29,31],"2036":[31,31,32,31,31,31,30,29,30,29,30,30],"2037":[31,31,32,32,31,30,30,29,30,29,30,30],"2038":[31,32,31,32,31,30,30,30,29,29,30,31],"2039":[31,31,31,32,31,31,29,30,30,29,30,30],"2040":[31,31,32,31,31,31,30,29,30,29,30,30],"2041":[31,31,32,32,31,30,30,29,30,29,30,30],"2042":[31,32,31,32,31,30,30,30,29,29,30,31],"2043":[31,31,31,32,31,31,29,30,30,29,30,30],"2044":[31,31,32,31,31,31,30,29,30,29,30,30],"2045":[31,32,31,32,31,30,30,29,30,29,30,30],"2046":[31,32,31,32,31,30,30,30,29,29,30,31],"2047":[31,31,31,32,31,31,30,29,30,29,30,30],"2048":[31,31,32,31,31,31,30,29,30,29,30,30],"2049":[31,32,31,32,31,30,30,30,29,29,30,30],"2050":[31,32,31,32,31,30,30,30,29,30,29,31],"2051":[31,31,31,32,31,31,30,29,30,29,30,30],"2052":[31,31,32,31,31,31,30,29,30,29,30,30],"2053":[31,32,31,32,31,30,30,30,29,29,30,30],"2054":[31,32,31,32,31,30,30,30,29,30,29,31],"2055":[31,31,32,31,31,31,30,29,30,29,30,30],"2056":[31,31,32,31,32,30,30,29,30,29,30,30],"2057":[31,32,31,32,31,30,30,30,29,29,30,31],"2058":[30,32,31,32,31,30,30,30,29,30,29,31],"2059":[31,31,32,31,31,31,30,29,30,29,30,30],"2060":[31,31,32,32,31,30,30,29,30,29,30,30],"2061":[31,32,31,32,31,30,30,30,29,29,30,31],"2062":[30,32,31,32,31,31,29,30,29,30,29,31],"2063":[31,31,32,31,31,31,30,29,30,29,30,30],"2064":[31,31,32,32,31,30,30,29,30,29,30,30],"2065":[31,32,31,32,31,30,30,30,29,29,30,31],"2066":[31,31,31,32,31,31,29,30,30,29,29,31],"2067":[31,31,32,31,31,31,30,29,30,29,30,30],"2068":[31,31,32,32,31,30,30,29,30,29,30,30],"2069":[31,32,31,32,31,30,30,30,29,29,30,31],"2070":[31,31,31,32,31,31,29,30,30,29,30,30],"2071":[31,31,32,31,31,31,30,29,30,29,30,30],"2072":[31,32,31,32,31,30,30,29,30,29,30,30],"2073":[31,32,31,32,31,30,30,30,29,29,30,31],"2074":[31,31,31,32,31,31,30,29,30,29,30,30],"2075":[31,31,32,31,31,31,30,29,30,29,30,30],"2076":[31,32,31,32,31,30,30,30,29,29,30,30],"2077":[31,32,31,32,31,30,30,30,29,30,29,31],"2078":[31,31,31,32,31,31,30,29,30,29,30,30],"2079":[31,31,32,31,31,31,30,29,30,29,30,30],"2080":[31,32,31,32,31,30,30,30,29,29,30,30],"2081":[31,32,31,32,31,30,30,30,29,30,29,31],"2082":[31,31,32,31,31,31,30,29,30,29,30,30],"2083":[31,31,32,31,31,31,30,29,30,29,30,30],"2084":[31,31,32,31,31,30,30,30,29,30,30,30],"2085":[31,32,31,32,30,31,30,30,29,30,30,30],"2086":[30,32,31,32,31,30,30,30,29,30,30,30],"2087":[31,31,32,31,31,31,30,30,29,30,30,30],"2088":[30,31,32,32,30,31,30,30,29,30,30,30],"2089":[30,32,31,32,31,30,30,30,29,30,30,30],"2090":[30,32,31,32,31,30,30,30,29,30,30,30],"2091":[31,31,32,31,31,31,30,30,29,30,30,30],"2092":[30,31,32,32,31,30,30,30,29,30,30,30],"2093":[30,32,31,32,31,30,30,30,29,30,30,30],"2094":[31,31,32,31,31,30,30,30,29,30,30,30],"2095":[31,31,32,31,31,31,30,29,30,30,30,30],"2096":[30,31,32,32,31,30,30,30,30,29,30,30],"2097":[31,32,31,32,31,30,30,30,29,30,30,30],"2098":[31,31,32,31,31,31,29,30,29,30,29,31],"2099":[31,31,32,31,31,31,30,29,29,30,30,30]};
 const hrnBsMonths = ['बैशाख','जेठ','असार','साउन','भदौ','असोज','कार्तिक','मंसिर','पुस','माघ','फागुन','चैत'];
 const hrnBsMonthsEn = ['Baisakh','Jestha','Ashadh','Shrawan','Bhadra','Ashwin','Kartik','Mangsir','Poush','Magh','Falgun','Chaitra'];
-const hrnNepalClockFormat = new Intl.DateTimeFormat('en-GB-u-nu-latn',{timeZone:'Asia/Kathmandu',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
 function hrnAdToBs(year,month,day){
   // Civil dates use UTC arithmetic so DST and the visitor's timezone cannot shift them.
   let remaining=Math.floor((Date.UTC(year,month-1,day)-Date.UTC(1913,3,13))/86400000);
@@ -2302,43 +2310,82 @@ function hrnAdToBs(year,month,day){
   }
   return null;
 }
-function hrnNepalCivilDate(now=new Date()){
-  const parts=new Intl.DateTimeFormat('en-US-u-ca-gregory-nu-latn',{
-    timeZone:'Asia/Kathmandu',year:'numeric',month:'2-digit',day:'2-digit'
-  }).formatToParts(now);
-  const values=Object.fromEntries(parts.map(p=>[p.type,p.value]));
-  return {year:Number(values.year),month:Number(values.month),day:Number(values.day)};
+const hrnClockText={
+  en:{locale:'en-US',label:'Nepal',group:'Nepal time and Bikram Sambat date',before:'It’s ',after:' in Nepal',ahead:'Nepal is {d} ahead of you',behind:'Nepal is {d} behind you'},
+  ar:{locale:'ar-EG',label:'نيبال',group:'توقيت نيبال وتاريخ بيكرام سامبات',before:'الساعة الآن ',after:' في نيبال',ahead:'توقيت نيبال متقدّم عنك: {d}',behind:'توقيت نيبال متأخر عنك: {d}'},
+  tr:{locale:'tr-TR',label:'Nepal',group:'Nepal saati ve Bikram Sambat tarihi',before:'Nepal’de saat şu an ',after:'',ahead:'Nepal saati sizden {d} ileri',behind:'Nepal saati sizden {d} geri'}
+};
+const hrnNepalParts=new Intl.DateTimeFormat('en-US-u-ca-gregory-nu-latn',{
+  timeZone:'Asia/Kathmandu',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'
+});
+const hrnFormatCache={};
+function hrnCached(key,make){return hrnFormatCache[key]||(hrnFormatCache[key]=make());}
+function hrnNepalNow(now){
+  const p=Object.fromEntries(hrnNepalParts.formatToParts(now).map(x=>[x.type,x.value]));
+  const n={year:+p.year,month:+p.month,day:+p.day,hour:+p.hour%24,minute:+p.minute};
+  // Kathmandu's UTC offset, derived from the wall clock rather than hard-coded.
+  n.offset=Math.round((Date.UTC(n.year,n.month-1,n.day,n.hour,n.minute)-Math.floor(now.getTime()/60000)*60000)/60000);
+  return n;
 }
-function updateNepalDates(now=new Date()){
-  const bsEl=document.getElementById('nepal-date-bs');
-  const englishEl=document.getElementById('nepal-date-bs-en');
-  const clockEl=document.getElementById('nepal-live-time');
-  if(!bsEl||!englishEl||!clockEl)return;
-  const lang=document.documentElement.lang;
-  const labels={en:['Nepal time','Nepal time and Bikram Sambat date'],ar:['بتوقيت نيبال','توقيت نيبال وتاريخ بيكرام سامبات'],tr:['Nepal saati','Nepal saati ve Bikram Sambat tarihi']}[lang]||['Nepal time','Nepal time and Bikram Sambat date'];
-  document.getElementById('nepal-date-zone').textContent=labels[0];
-  document.getElementById('nepal-date-strip').setAttribute('aria-label',labels[1]);
-  clockEl.textContent=hrnNepalClockFormat.format(now);
-  clockEl.dateTime=now.toISOString();
-  const civil=hrnNepalCivilDate(now);
-  const iso=[civil.year,String(civil.month).padStart(2,'0'),String(civil.day).padStart(2,'0')].join('-');
-  // Avoid rewriting date nodes every second; still refresh immediately on Nepal midnight.
-  if(bsEl.dateTime===iso)return;
-  const bs=hrnAdToBs(civil.year,civil.month,civil.day);
-  const np=value=>String(value).replace(/\d/g,d=>'०१२३४५६७८९'[Number(d)]);
-  bsEl.textContent=bs?`${np(bs.day)} ${hrnBsMonths[bs.month-1]} ${np(bs.year)}`:'—';
-  englishEl.textContent=bs?`${bs.day} ${hrnBsMonthsEn[bs.month-1]} ${bs.year}`:'—';
-  // Both <time datetime> attributes use the equivalent Gregorian civil date.
-  for(const el of [bsEl,englishEl]){
-    el.dateTime=iso;
-    el.title=bs?`${bs.year}-${String(bs.month).padStart(2,'0')}-${String(bs.day).padStart(2,'0')} BS`: 'Date outside supported BS calendar range';
+function hrnDuration(minutes,locale){
+  const h=Math.floor(minutes/60),m=minutes%60;
+  try{
+    const long=locale.startsWith('ar');
+    const hf=hrnCached(locale+'h',()=>new Intl.NumberFormat(locale,{style:'unit',unit:'hour',unitDisplay:long?'long':'short'}));
+    const mf=hrnCached(locale+'m',()=>new Intl.NumberFormat(locale,{style:'unit',unit:'minute',unitDisplay:long?'long':'short'}));
+    const lf=hrnCached(locale+'l',()=>new Intl.ListFormat(locale,{type:'unit',style:long?'long':'narrow'}));
+    return lf.format([h&&hf.format(h),m&&mf.format(m)].filter(Boolean));
+  }catch(e){
+    return [h&&`${h}h`,m&&`${m}m`].filter(Boolean).join(' ');
   }
 }
-document.addEventListener('DOMContentLoaded',()=>{
+function updateNepalDates(now=new Date()){
+  const roots=document.querySelectorAll('[data-nepal-clock]');
+  if(!roots.length)return;
+  const t=hrnClockText[document.documentElement.lang]||hrnClockText.en;
+  const n=hrnNepalNow(now);
+  const pad=v=>String(v).padStart(2,'0');
+  const set=(el,v)=>{if(el&&el.textContent!==v)el.textContent=v;};
+  const timeText=hrnCached(t.locale+'t',()=>new Intl.DateTimeFormat(t.locale,{timeZone:'Asia/Kathmandu',hour:'numeric',minute:'2-digit'})).format(now);
+  const iso=`${n.year}-${pad(n.month)}-${pad(n.day)}`;
+  const zone=`${n.offset<0?'-':'+'}${pad(Math.floor(Math.abs(n.offset)/60))}:${pad(Math.abs(n.offset)%60)}`;
+  const diff=n.offset+now.getTimezoneOffset();
+  const diffText=diff?t[diff>0?'ahead':'behind'].replace('{d}',hrnDuration(Math.abs(diff),t.locale)):'';
+  const bs=hrnAdToBs(n.year,n.month,n.day);
+  const toNe=v=>String(v).replace(/\d/g,d=>'०१२३४५६७८९'[Number(d)]);
+  const bsEn=bs?`${bs.day} ${hrnBsMonthsEn[bs.month-1]} ${bs.year}`:'—';
+  const bsNe=bs?`${toNe(bs.day)} ${hrnBsMonths[bs.month-1]} ${toNe(bs.year)}`:'—';
+  const bsTitle=bs?`${bs.year}-${pad(bs.month)}-${pad(bs.day)} BS`:'Date outside supported BS calendar range';
+  roots.forEach(root=>{
+    root.dataset.daypart=(n.hour>=6&&n.hour<18)?'day':'night';
+    if(root.getAttribute('role')==='group')root.setAttribute('aria-label',t.group);
+    if(root.classList.contains('nepal-clock'))root.title=diffText;
+    set(root.querySelector('[data-clock-label]'),t.label);
+    set(root.querySelector('[data-clock-before]'),t.before);
+    set(root.querySelector('[data-clock-after]'),t.after);
+    set(root.querySelector('[data-clock-diff]'),diffText);
+    const clock=root.querySelector('[data-clock-time]');
+    if(clock){set(clock,timeText);clock.dateTime=`${iso}T${pad(n.hour)}:${pad(n.minute)}${zone}`;}
+    for(const [sel,text] of [['[data-clock-bs-en]',bsEn],['[data-clock-bs-ne]',bsNe]]){
+      const el=root.querySelector(sel);
+      if(!el)continue;
+      set(el,text);
+      el.dateTime=iso; // the equivalent Gregorian civil date in Nepal
+      el.title=bsTitle;
+    }
+  });
+}
+let hrnClockTimer;
+function runNepalClock(){
+  // Minutes only, so tick on the minute instead of every second.
+  clearTimeout(hrnClockTimer);
   updateNepalDates();
-  setInterval(updateNepalDates,1000);
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateNepalDates();});
-  window.addEventListener('pageshow',()=>updateNepalDates());
+  hrnClockTimer=setTimeout(runNepalClock,60000-(Date.now()%60000)+50);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  runNepalClock();
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)runNepalClock();});
+  window.addEventListener('pageshow',runNepalClock);
 });
 
 function setLanguage(lang,persist=true){
@@ -2487,7 +2534,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   const restoreLanguages=makeFloaterDraggable(floatingLanguages,'language');
   const restoreWhatsapp=makeFloaterDraggable(floatingWhatsapp,'whatsapp');
   function updateFloatingLanguages(){
-    floatingLanguages.style.setProperty('--topbar-height',`${topbar.getBoundingClientRect().height}px`);
+    floatingLanguages.style.setProperty('--topbar-height',`${Math.max(0,topbar.getBoundingClientRect().bottom)}px`);
     const show=header.getBoundingClientRect().bottom<=0;
     floatingLanguages.hidden=!show;
     floatingWhatsapp.hidden=!show;
