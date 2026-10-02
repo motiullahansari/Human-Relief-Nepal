@@ -89,6 +89,26 @@ html[dir="rtl"] body{line-height:1.75}html[dir="rtl"] h2,html[dir="rtl"] h3,html
 @media(max-width:460px){.zakat-fields{grid-template-columns:1fr}.zakat-form,.zakat-result{padding:21px 18px;border-radius:18px}.zakat-actions{flex-direction:column}.zakat-actions .btn{width:100%}.zakat-group legend{font-size:16px}.zakat-amount{font-size:31px}}
 @media(prefers-reduced-motion:reduce){#zakat-calculator *{transition:none}}
 
+
+/* Bank details are embedded in the calculator so this page works independently. */
+.zakat-bank-section{padding:0 0 48px;background:var(--bg)}
+.zakat-bank-details{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#fff;scroll-margin-top:24px;box-shadow:0 12px 36px rgba(16,59,83,.05)}
+.zakat-bank-details>summary{display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none;padding:22px 26px;cursor:pointer;color:var(--navy-2);font-size:18px;font-weight:600;line-height:1.5}
+.zakat-bank-details>summary::-webkit-details-marker{display:none}.zakat-bank-details>summary svg{width:22px;height:22px;flex:none;transition:transform .15s}.zakat-bank-details[open]>summary svg{transform:rotate(180deg)}
+.zakat-bank-details[open]>summary{border-bottom:1px solid var(--line)}.zakat-bank-details>summary:focus-visible{outline-offset:-5px}
+.zakat-bank-content{padding:24px}.zakat-bank-intro{margin:0 0 22px;color:var(--muted);font-size:14px}
+.donation-accounts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
+.donation-card{min-width:0;overflow:hidden;background:#fff;border:1px solid #dce8eb;border-radius:18px}
+.donation-card-head{display:flex;align-items:center;gap:14px;padding:20px 22px;background:var(--navy-2);color:#fff}.donation-card-usd .donation-card-head{background:#12616b}
+.donation-card-icon{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border-radius:12px;background:rgba(255,255,255,.12)}.donation-card-icon svg{width:25px;height:25px;fill:none;stroke:#b1eded;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.donation-card-kicker{display:block;color:#c4e3e6;font-size:11px;font-weight:500}.donation-card-head h3{margin:3px 0 0;color:#fff;font-size:19px;line-height:1.4}
+.donation-details{margin:0;padding:8px 22px 12px}.donation-detail{display:grid;grid-template-columns:minmax(98px,.8fr) minmax(0,1.5fr);align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #e8eef0}.donation-detail:last-child{border-bottom:0}
+.donation-detail dt{color:var(--muted);font-size:12px;font-weight:500}.donation-detail dd{min-width:0;margin:0;color:var(--navy-2);font-size:14px;font-weight:600;overflow-wrap:anywhere}.donation-detail bdi{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+.copyable{display:flex;align-items:center;justify-content:space-between;gap:10px}.copy-btn{flex:none;border:1px solid #d6e2e5;background:#f4f8f9;color:var(--navy-2);font:inherit;font-size:11px;font-weight:500;min-height:36px;padding:6px 9px;border-radius:8px;cursor:pointer}.copy-btn:hover{background:#e8f1f3}.copy-btn.copied{background:#e3f5ee;border-color:#9fd6c0;color:#1d6b50}
+.donation-notes{display:grid;grid-template-columns:1fr;gap:10px;margin-top:22px}.donation-notes p{display:flex;gap:10px;align-items:flex-start;margin:0;padding:13px 15px;border-radius:12px;background:#f5f9fa;border:1px solid #dde8eb;color:#4f6572;font-size:12px;line-height:1.7}.donation-note-icon{flex:none;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;background:rgba(25,142,150,.12);color:var(--teal-ink);font-weight:700;font-size:12px}
+.bank-copy-status{margin:14px 0 0;font-size:12px;color:var(--teal-ink);line-height:1.6}.bank-copy-status:empty{display:none}
+@media(max-width:760px){.donation-accounts{grid-template-columns:1fr}.zakat-bank-content{padding:20px}}
+@media(max-width:460px){.zakat-bank-section{padding-bottom:32px}.zakat-bank-details>summary{padding:18px;font-size:16px}.zakat-bank-content{padding:16px}.donation-card-head{padding:17px}.donation-details{padding:7px 17px 10px}.donation-detail{grid-template-columns:1fr;gap:4px}.donation-card-head h3{font-size:18px}}
 </style>
 </head>
 <body>
@@ -169,7 +189,7 @@ html[dir="rtl"] body{line-height:1.75}html[dir="rtl"] h2,html[dir="rtl"] h3,html
           <div><dt data-i18n="zNisab">Nisab threshold</dt><dd><bdi id="zakat-nisab">—</bdi></dd></div>
         </dl>
         <p class="zakat-status" id="zakat-status" role="status" aria-atomic="true">Enter a current metal price or your own nisab to see your estimate.</p>
-        <a data-i18n="zDonation" class="btn zakat-donation" href="index_updated_photo.html#donate">View donation options</a>
+        <a data-i18n="zDonation" class="btn zakat-donation" href="#bank-details" id="zakat-donation-options" aria-controls="bank-details" aria-expanded="false">View donation options</a>
         <details class="zakat-method">
           <summary data-i18n="zHow">How this estimate works</summary>
           <p data-i18n="zMethod">Net wealth = zakatable assets minus eligible deductions (minimum zero). If it meets your selected nisab and your zakat date has arrived, the estimate is 2.5% of the full net amount, not just the amount above nisab.</p>
@@ -181,7 +201,52 @@ html[dir="rtl"] body{line-height:1.75}html[dir="rtl"] h2,html[dir="rtl"] h3,html
     </div>
     <noscript><p>This calculator needs JavaScript. Enable it to calculate your zakat estimate.</p></noscript>
   </div>
-</section></main>
+</section>
+<section class="zakat-bank-section" aria-labelledby="bank-details-title">
+  <div class="container">
+    <details class="zakat-bank-details" id="bank-details">
+      <summary id="bank-details-title"><span data-i18n="bankDetailsTitle">Donation bank details</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="zakat-bank-content">
+        <p class="zakat-bank-intro" data-i18n="bankDetailsIntro">Use the bank accounts below to make a donation to Human Relief Nepal.</p>
+        <div class="donation-accounts">
+<div class="donation-card">
+<div class="donation-card-head">
+<span aria-hidden="true" class="donation-card-icon"><svg viewbox="0 0 24 24"><path d="m2 9 10-6 10 6M3 10h18M5 10v9m5-9v9m4-9v9m5-9v9M2 20h20"></path></svg></span>
+<div><span class="donation-card-kicker" data-i18n="donationBankKicker">Bank transfer</span><h3 data-i18n="localAccountHeading">Nepali rupee (NPR) account</h3></div>
+</div>
+<dl class="donation-details">
+<div class="donation-detail"><dt data-i18n="bankAccountName">Account name</dt><dd><bdi dir="ltr">Human Relief Nepal</bdi></dd></div>
+<div class="donation-detail"><dt data-i18n="bankAccountNumber">Account number</dt><dd class="copyable"><bdi dir="ltr">16901017504768</bdi><button class="copy-btn" type="button" data-copy="16901017504768" data-i18n-aria-label="copyAria" aria-label="Copy"><span data-i18n="copy">Copy</span></button></dd></div>
+<div class="donation-detail"><dt data-i18n="bankName">Bank</dt><dd><bdi dir="ltr">Nabil Bank Ltd.</bdi></dd></div>
+<div class="donation-detail"><dt data-i18n="bankBranch">Branch</dt><dd><bdi dir="ltr">Ghantaghar, Kathmandu</bdi></dd></div>
+<div class="donation-detail"><dt data-i18n="bankSwift">SWIFT code</dt><dd class="copyable"><bdi dir="ltr">NARBNPKA</bdi><button class="copy-btn" type="button" data-copy="NARBNPKA" data-i18n-aria-label="copyAria" aria-label="Copy"><span data-i18n="copy">Copy</span></button></dd></div>
+</dl>
+</div>
+<div class="donation-card donation-card-usd">
+<div class="donation-card-head">
+<span aria-hidden="true" class="donation-card-icon"><svg viewbox="0 0 24 24"><path d="m2 9 10-6 10 6M3 10h18M5 10v9m5-9v9m4-9v9m5-9v9M2 20h20"></path></svg></span>
+<div><span class="donation-card-kicker" data-i18n="donationBankKicker">Bank transfer</span><h3 data-i18n="usdAccountHeading">US dollar (USD) account</h3></div>
+</div>
+<dl class="donation-details">
+<div class="donation-detail"><dt data-i18n="bankAccountName">Account name</dt><dd><bdi dir="ltr">Human Relief Nepal</bdi></dd></div>
+<div class="donation-detail"><dt data-i18n="usdAccountNumber">USD account number</dt><dd class="copyable"><bdi dir="ltr">16903217500003</bdi><button class="copy-btn" type="button" data-copy="16903217500003" data-i18n-aria-label="copyAria" aria-label="Copy"><span data-i18n="copy">Copy</span></button></dd></div>
+<div class="donation-detail"><dt data-i18n="bankName">Bank</dt><dd><bdi dir="ltr">Nabil Bank Ltd.</bdi></dd></div>
+<div class="donation-detail"><dt data-i18n="bankBranch">Branch</dt><dd><bdi dir="ltr">Ghantaghar, Kathmandu</bdi></dd></div>
+<div class="donation-detail"><dt data-i18n="bankSwift">SWIFT code</dt><dd class="copyable"><bdi dir="ltr">NARBNPKA</bdi><button class="copy-btn" type="button" data-copy="NARBNPKA" data-i18n-aria-label="copyAria" aria-label="Copy"><span data-i18n="copy">Copy</span></button></dd></div>
+</dl>
+</div>
+</div>
+        <div class="donation-notes">
+<p><span class="donation-note-icon" aria-hidden="true">✎</span><span data-i18n="donateReference">Please include your name and the purpose of your donation in the payment reference, so we can record it correctly.</span></p>
+<p><span class="donation-note-icon" aria-hidden="true">✓</span><span data-i18n="donateOfficial">Donate only to the accounts listed here. We never ask for donations to personal accounts.</span></p>
+<p><span class="donation-note-icon" aria-hidden="true">§</span><span data-i18n="donateSwc">Human Relief Nepal is affiliated with Nepal's Social Welfare Council (No. 58549). Contributions from abroad are handled in line with its requirements.</span></p>
+</div>
+        <p class="bank-copy-status" id="bank-copy-status" role="status" aria-atomic="true"></p>
+      </div>
+    </details>
+  </div>
+</section>
+</main>
 <footer class="zakat-page-footer"><div class="container"><span>© 2026 Human Relief Nepal · <span data-i18n="zPageTagline">Relief with Dignity</span></span><a class="zakat-home-link" href="index_updated_photo.html#zakat-calculator" data-i18n="zHome">Back to Home</a></div></footer>
 <script id="zakat-page-language">
 const translations = {"en": {"zHome": "Back to Home", "zPageTitle": "Zakat Calculator | Human Relief Nepal", "zPageDescription": "Estimate your zakat with Human Relief Nepal’s calculator. Choose your currency, nisab, assets and eligible deductions.", "zPageTagline": "Relief with Dignity", "zLanguage": "Language selector"}, "ar": {"zHome": "العودة إلى الرئيسية", "zPageTitle": "حاسبة الزكاة | Human Relief Nepal", "zPageDescription": "قدّر زكاتك باستخدام حاسبة Human Relief Nepal. اختر العملة والنصاب وأدخل الأموال الزكوية والخصومات المسموح بها.", "zPageTagline": "إغاثة بكرامة", "zLanguage": "اختيار اللغة"}, "tr": {"zHome": "Ana sayfaya dön", "zPageTitle": "Zekât Hesaplayıcı | Human Relief Nepal", "zPageDescription": "Human Relief Nepal hesaplayıcısı ile zekâtınızı tahmini olarak hesaplayın. Para birimi, nisab, varlıklar ve uygun indirimleri seçin.", "zPageTagline": "Onurlu Yardım", "zLanguage": "Dil seçimi"}};
@@ -393,6 +458,55 @@ Object.keys(zakatTranslations).forEach(lang => Object.assign(translations[lang],
   else init();
 })();
 
+</script>
+<script id="zakat-bank-script">
+const zakatBankTranslations = {"en": {"bankDetailsTitle": "Donation bank details", "bankDetailsIntro": "Use the bank accounts below to make a donation to Human Relief Nepal.", "bankCopyFailed": "Please select and copy the details manually.", "bankCopyDone": "Copied to clipboard.", "bankAccountName": "Account name", "bankAccountNumber": "Account number", "usdAccountNumber": "USD account number", "bankName": "Bank", "bankBranch": "Branch", "bankSwift": "SWIFT code", "copy": "Copy", "copied": "Copied", "copyAria": "Copy to clipboard", "donationBankKicker": "Bank transfer", "localAccountHeading": "Nepali rupee (NPR) account", "usdAccountHeading": "US dollar (USD) account", "donateReference": "Please include your name and the purpose of your donation in the payment reference, so we can record it correctly.", "donateOfficial": "Donate only to the accounts listed here. We never ask for donations to personal accounts.", "donateSwc": "Human Relief Nepal is affiliated with Nepal's Social Welfare Council (No. 58549). Contributions from abroad are handled in line with its requirements."}, "ar": {"bankDetailsTitle": "تفاصيل الحسابات البنكية للتبرع", "bankDetailsIntro": "استخدم الحسابات البنكية أدناه للتبرع إلى Human Relief Nepal.", "bankCopyFailed": "يرجى تحديد التفاصيل ونسخها يدويًا.", "bankCopyDone": "تم النسخ إلى الحافظة.", "bankAccountName": "اسم الحساب", "bankAccountNumber": "رقم الحساب", "usdAccountNumber": "رقم حساب الدولار الأمريكي", "bankName": "البنك", "bankBranch": "الفرع", "bankSwift": "رمز SWIFT", "copy": "نسخ", "copied": "تم النسخ", "copyAria": "نسخ إلى الحافظة", "donationBankKicker": "تحويل بنكي", "localAccountHeading": "حساب الروبية النيبالية (NPR)", "usdAccountHeading": "حساب الدولار الأمريكي (USD)", "donateReference": "يرجى كتابة اسمك والغرض من تبرعك في مرجع التحويل حتى نسجله بشكل صحيح.", "donateOfficial": "تبرّع فقط إلى الحسابات المذكورة هنا. لا نطلب أبداً التبرع إلى حسابات شخصية.", "donateSwc": "⁨Human Relief Nepal⁩ منتسبة إلى مجلس الرعاية الاجتماعية في نيبال (رقم 58549)، وتُعالَج التبرعات الواردة من الخارج وفق متطلباته."}, "tr": {"bankDetailsTitle": "Bağış için banka bilgileri", "bankDetailsIntro": "Human Relief Nepal’e bağış yapmak için aşağıdaki banka hesaplarını kullanabilirsiniz.", "bankCopyFailed": "Lütfen bilgileri seçip elle kopyalayın.", "bankCopyDone": "Panoya kopyalandı.", "bankAccountName": "Hesap adı", "bankAccountNumber": "Hesap numarası", "usdAccountNumber": "USD hesap numarası", "bankName": "Banka", "bankBranch": "Şube", "bankSwift": "SWIFT kodu", "copy": "Kopyala", "copied": "Kopyalandı", "copyAria": "Panoya kopyala", "donationBankKicker": "Banka havalesi", "localAccountHeading": "Nepal rupisi (NPR) hesabı", "usdAccountHeading": "ABD doları (USD) hesabı", "donateReference": "Kaydın doğru yapılabilmesi için lütfen havale açıklamasına adınızı ve bağışınızın amacını yazın.", "donateOfficial": "Yalnızca burada listelenen hesaplara bağış yapın. Kişisel hesaplara asla bağış talep etmeyiz.", "donateSwc": "Human Relief Nepal, Nepal Sosyal Refah Konseyi'ne (No. 58549) bağlıdır. Yurt dışından gelen katkılar konseyin gerekliliklerine uygun şekilde işlenir."}};
+Object.keys(zakatBankTranslations).forEach(lang=>Object.assign(translations[lang],zakatBankTranslations[lang]));
+(function(){
+  function init(){
+    const details=document.getElementById('bank-details');
+    const opener=document.getElementById('zakat-donation-options');
+    const notice=document.getElementById('bank-copy-status');
+    const text=()=>translations[document.documentElement.lang]||translations.en;
+    let noticeKey='';
+    const syncExpanded=()=>opener.setAttribute('aria-expanded',String(details.open));
+    opener.addEventListener('click',event=>{
+      event.preventDefault();
+      details.open=true;
+      syncExpanded();
+      details.querySelector('summary').focus({preventScroll:true});
+      details.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    });
+    details.addEventListener('toggle',syncExpanded);
+    if(location.hash==='#bank-details')details.open=true;
+    window.addEventListener('hashchange',()=>{if(location.hash==='#bank-details')details.open=true;});
+    syncExpanded();
+    async function copy(value){
+      if(navigator.clipboard&&window.isSecureContext){
+        try{await navigator.clipboard.writeText(value);return true;}catch{}
+      }
+      const active=document.activeElement;
+      const field=document.createElement('textarea');
+      field.value=value;field.setAttribute('readonly','');
+      field.style.cssText='position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(field);field.select();field.setSelectionRange(0,value.length);
+      let success=false;
+      try{success=document.execCommand('copy');}catch{}
+      field.remove();active?.focus({preventScroll:true});
+      return success;
+    }
+    details.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{
+      const success=await copy(button.dataset.copy);
+      noticeKey=success?'bankCopyDone':'bankCopyFailed';notice.textContent=text()[noticeKey];
+      button.classList.toggle('copied',success);
+      const label=button.querySelector('span');label.textContent=success?text().copied:text().copy;
+      clearTimeout(button._bankCopyTimer);
+      button._bankCopyTimer=setTimeout(()=>{button.classList.remove('copied');label.textContent=text().copy;},1800);
+    }));
+    new MutationObserver(()=>{if(noticeKey)notice.textContent=text()[noticeKey];}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
 </script>
 </body>
 </html>
