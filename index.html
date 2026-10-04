@@ -1165,6 +1165,99 @@ footer .footer-grid>div{min-width:0}
   footer .footer-contact-links{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 </style>
+<style id="hrn-working-areas-style">
+/* HRN Working Areas — scoped to this section only. */
+.hrn-coverage{
+  --cov-ink:#153e52;--cov-muted:#566f79;--cov-line:#d5e5e5;--cov-bg:#f2f7f7;
+  --cov-primary:#ab246c;--cov-primary-soft:#f7e6ef;
+  --cov-community:#148b85;--cov-community-soft:#e2f2f0;
+  --cov-priority:#7fbdb6;--cov-priority-soft:#eef7f6;
+  --cov-rest:#f1e7d7;--cov-emergency:#c97d2a;
+  padding:56px 0;background:var(--cov-bg);color:var(--cov-ink);border-block:1px solid #dfebeb
+}
+.hrn-coverage .hrn-coverage-heading{max-width:850px;margin-bottom:28px}
+.hrn-coverage .hrn-coverage-eyebrow{color:#087b77;font-size:13px;font-weight:700;margin-bottom:5px}
+.hrn-coverage .hrn-coverage-title{font-size:clamp(28px,3.4vw,40px);color:var(--cov-ink);margin:0 0 12px}
+.hrn-coverage .hrn-coverage-intro{font-size:15px;line-height:1.7;color:#4e6772;margin:0}
+
+/* Layout: map on one side, the area lists on the other */
+.hrn-coverage .hrn-coverage-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:20px;align-items:start}
+.hrn-coverage .hrn-coverage-mapcard{background:#fff;border:1px solid var(--cov-line);border-radius:16px;padding:18px;box-shadow:0 4px 16px rgba(21,62,82,.03);min-width:0}
+.hrn-coverage .hrn-coverage-mapwrap{position:relative}
+.hrn-coverage .hrn-coverage-map{display:block;width:100%;height:auto;overflow:visible}
+.hrn-coverage .hrn-map-district{fill:var(--cov-rest);stroke:#fff;stroke-width:1.6;stroke-linejoin:round;transition:fill .15s,filter .15s}
+.hrn-coverage .hrn-map-district[data-group="primary"]{fill:var(--cov-primary)}
+.hrn-coverage .hrn-map-district[data-group="community"]{fill:var(--cov-community)}
+.hrn-coverage .hrn-map-district[data-group="priority"]{fill:var(--cov-priority)}
+.hrn-coverage .hrn-map-district[data-group]{cursor:pointer;outline:none}
+.hrn-coverage .hrn-map-district[data-group]:hover,.hrn-coverage .hrn-map-district.is-preview{filter:brightness(.9)}
+.hrn-coverage .hrn-map-district[data-group]:focus-visible{stroke:var(--cov-ink);stroke-width:3.4}
+.hrn-coverage .hrn-map-district.is-selected{stroke:var(--cov-ink);stroke-width:4;filter:brightness(.88)}
+.hrn-coverage .hrn-map-label{font:700 25px 'Readex Pro',Arial,sans-serif;fill:var(--cov-ink);stroke:#fff;stroke-width:6;stroke-linejoin:round;paint-order:stroke fill;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+.hrn-coverage .hrn-map-leader{stroke:var(--cov-ink);stroke-width:2;opacity:.55;pointer-events:none}
+.hrn-coverage .hrn-map-hq .nepal-map-hq-pin{fill:#fff;stroke:var(--cov-primary);stroke-width:3}
+.hrn-coverage .hrn-map-hq .nepal-map-hq-dot{fill:var(--cov-primary)}
+
+/* Legend */
+.hrn-coverage .hrn-coverage-legend{display:flex;flex-wrap:wrap;gap:8px 16px;list-style:none;margin:12px 0 0;padding:12px 0 0;border-top:1px solid #e6efef;font-size:12px;color:var(--cov-muted)}
+.hrn-coverage .hrn-coverage-legend li{display:inline-flex;align-items:center;gap:7px;margin:0}
+.hrn-coverage .hrn-coverage-swatch{width:12px;height:12px;border-radius:3px;flex:0 0 12px;background:var(--sw)}
+.hrn-coverage .hrn-coverage-legend svg{width:12px;height:16px;flex:0 0 12px}
+
+/* Selection strip under the map */
+.hrn-coverage .hrn-coverage-prompt{margin:12px 0 0;font-size:13px;color:var(--cov-muted)}
+.hrn-coverage .hrn-coverage-selection{margin-top:12px;border-radius:12px;background:#f4f9f8;border:1px solid #d3e6e3;padding:14px 16px;display:flex;gap:16px;align-items:flex-start;justify-content:space-between}
+.hrn-coverage .hrn-coverage-selection h3{font-size:19px;margin:0;line-height:1.35;color:var(--cov-ink);display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.hrn-coverage .hrn-coverage-status{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.01em;padding:3px 9px;border-radius:999px;color:#fff;background:var(--cov-community)}
+.hrn-coverage .hrn-coverage-status[data-group="primary"]{background:var(--cov-primary)}
+.hrn-coverage .hrn-coverage-status[data-group="priority"]{background:var(--cov-priority-soft);color:#1d6660;box-shadow:inset 0 0 0 1px var(--cov-priority)}
+.hrn-coverage .hrn-coverage-meta{font-size:12px;color:var(--cov-muted);margin:5px 0 0}
+.hrn-coverage .hrn-coverage-scope{font-size:13px;line-height:1.65;color:#3f616c;margin:8px 0 0;max-width:620px}
+.hrn-coverage .hrn-coverage-clear{background:#fff;border:1px solid #aecac6;border-radius:8px;padding:7px 11px;color:#204f61;font:inherit;font-size:12px;line-height:1.5;cursor:pointer;flex:0 0 auto;min-height:36px}
+.hrn-coverage .hrn-coverage-clear:hover{background:#e9f4f2}
+
+/* Area lists */
+.hrn-coverage .hrn-coverage-groups{display:grid;gap:12px;min-width:0}
+.hrn-coverage .hrn-coverage-card{padding:18px 20px;border:1px solid var(--cov-line);background:#fff;border-radius:14px;min-width:0;box-shadow:0 4px 16px rgba(21,62,82,.025);border-inline-start:4px solid var(--accent,var(--cov-community))}
+.hrn-coverage .hrn-coverage-card[data-hrn-coverage-group="primary"]{--accent:var(--cov-primary);background:linear-gradient(180deg,#fdf6fa,#fff 60%)}
+.hrn-coverage .hrn-coverage-card[data-hrn-coverage-group="community"]{--accent:var(--cov-community)}
+.hrn-coverage .hrn-coverage-card[data-hrn-coverage-group="priority"]{--accent:var(--cov-priority);border-inline-start-style:dashed}
+.hrn-coverage .hrn-coverage-card[data-hrn-coverage-group="emergency"]{--accent:var(--cov-emergency);background:#fffaf3}
+.hrn-coverage .hrn-coverage-card h3{font-size:16px;line-height:1.4;margin:0 0 10px;color:var(--cov-ink);display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.hrn-coverage .hrn-coverage-card[data-hrn-coverage-group="primary"] h3{font-size:18px}
+.hrn-coverage .hrn-coverage-count{font-size:11px;font-weight:600;color:var(--cov-muted);white-space:nowrap}
+.hrn-coverage .hrn-coverage-card p{font-size:13px;line-height:1.65;color:var(--cov-muted);margin:10px 0 0}
+.hrn-coverage .hrn-coverage-card[data-hrn-coverage-group="emergency"] p{margin:0}
+.hrn-coverage .hrn-coverage-emergency{margin-top:20px}
+.hrn-coverage .hrn-coverage-hq{display:flex;align-items:center;gap:7px;font-size:12px!important;color:#6b2a4d!important}
+.hrn-coverage .hrn-coverage-hq svg{width:12px;height:16px;flex:0 0 12px}
+
+/* District chips */
+.hrn-coverage .hrn-coverage-districts{display:flex;flex-wrap:wrap;gap:7px;list-style:none;padding:0;margin:0}
+.hrn-coverage .hrn-coverage-districts li{margin:0;padding:0;min-width:0}
+.hrn-coverage .hrn-coverage-chip{display:inline-flex;align-items:center;gap:7px;min-height:36px;box-sizing:border-box;border:1px solid #cbdfe0;background:#fff;color:#204f61;border-radius:999px;padding:6px 13px 6px 10px;font:inherit;font-size:12.5px;font-weight:600;line-height:1.3}
+.hrn-coverage .hrn-coverage-chip:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent,var(--cov-community));flex:0 0 8px}
+.hrn-coverage button.hrn-coverage-chip{cursor:pointer;transition:background .15s,border-color .15s,transform .15s,box-shadow .15s}
+.hrn-coverage button.hrn-coverage-chip:hover,.hrn-coverage button.hrn-coverage-chip.is-preview{background:#f1f8f7;border-color:#90b9b4;transform:translateY(-1px);box-shadow:0 3px 8px rgba(21,62,82,.08)}
+.hrn-coverage button.hrn-coverage-chip[aria-pressed="true"]{background:var(--cov-ink);color:#fff;border-color:var(--cov-ink);box-shadow:none;transform:none}
+.hrn-coverage button.hrn-coverage-chip[aria-pressed="true"]:before{background:#fff}
+.hrn-coverage .hrn-coverage-card[data-hrn-coverage-group="primary"] .hrn-coverage-chip{font-size:14px;min-height:40px;padding:8px 16px 8px 12px}
+.hrn-coverage .hrn-coverage-card[data-hrn-coverage-group="priority"] .hrn-coverage-chip{border-style:dashed}
+.hrn-coverage button:focus-visible{outline:3px solid var(--cov-community);outline-offset:3px}
+.hrn-coverage [hidden]{display:none!important}
+
+@media(max-width:900px){
+  .hrn-coverage .hrn-coverage-layout{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:540px){
+  .hrn-coverage{padding:40px 0}
+  .hrn-coverage .hrn-coverage-mapcard{padding:12px}
+  .hrn-coverage .hrn-coverage-card{padding:16px}
+  .hrn-coverage .hrn-coverage-selection{flex-direction:column;gap:10px}
+  .hrn-coverage .hrn-map-label{font-size:40px;stroke-width:8}
+  .hrn-coverage .hrn-map-label[data-group="community"]{display:none}
+}
+</style>
 </head>
 <body>
 <div class="topbar" aria-label="Human Relief Nepal contact information">
@@ -1566,6 +1659,60 @@ SOFTWARE.
 <li><button type="button" data-province="Sudurpashchim" aria-pressed="false"><span class="nepal-map-swatch" style="--province-color:#2aada8"></span><span class="nepal-map-legend-name">Sudurpashchim</span></button></li>
       </ul><p class="nepal-map-hq-key"><svg viewBox="-15 -40 30 42" aria-hidden="true"><path class="nepal-map-hq-pin" d="M0 0C-4-8-13-15-13-24A13 13 0 0 1 13-24C13-15 4-8 0 0Z"/><circle class="nepal-map-hq-dot" cx="0" cy="-24" r="4.6"/></svg><strong data-i18n="headOffice">Head office</strong><bdi dir="ltr">Jitpur Simara, Bara</bdi></p></div>
 </div>
+</div>
+</section>
+
+<!-- HRN programme coverage: its own map and lists, separate from the census map above. -->
+<section class="hrn-coverage" id="hrn-working-areas" aria-labelledby="hrn-working-areas-title">
+<div class="container">
+<div class="hrn-coverage-heading">
+<div data-i18n="hrnCoverageEyebrow" class="hrn-coverage-eyebrow">Our community programmes</div>
+<h2 data-i18n="hrnCoverageTitle" class="hrn-coverage-title" id="hrn-working-areas-title">HRN Working Areas</h2>
+<p data-i18n="hrnCoverageIntro" class="hrn-coverage-intro">Our community programmes focus on Bara, Parsa and Rautahat, alongside support for selected communities in other districts. Emergency relief extends across Nepal according to assessed needs.</p>
+</div>
+<div class="hrn-coverage-layout">
+<div class="hrn-coverage-mapcard">
+<div class="hrn-coverage-mapwrap" id="hrn-coverage-mapwrap"></div>
+<ul class="hrn-coverage-legend" id="hrn-coverage-legend" hidden>
+<li><span class="hrn-coverage-swatch" style="--sw:var(--cov-primary)"></span><span data-i18n="hrnCoveragePrimary">Primary Working Areas</span></li>
+<li><span class="hrn-coverage-swatch" style="--sw:var(--cov-community)"></span><span data-i18n="hrnCoverageCommunity">Other Working Areas</span></li>
+<li><span class="hrn-coverage-swatch" style="--sw:var(--cov-priority)"></span><span data-i18n="hrnCoveragePriority">Expansion priorities</span></li>
+<li><span class="hrn-coverage-swatch" style="--sw:var(--cov-rest)"></span><span data-i18n="hrnCoverageLegendRest">Rest of Nepal · emergency response</span></li>
+<li><svg viewBox="-15 -40 30 42" aria-hidden="true" class="hrn-map-hq"><path class="nepal-map-hq-pin" d="M0 0C-4-8-13-15-13-24A13 13 0 0 1 13-24C13-15 4-8 0 0Z"/><circle class="nepal-map-hq-dot" cx="0" cy="-24" r="4.6"/></svg><span data-i18n="headOffice">Head office</span></li>
+</ul>
+<p data-i18n="hrnCoverageChoose" class="hrn-coverage-prompt" id="hrn-coverage-prompt" hidden>Select a district on the map or in the lists to see details.</p>
+<div class="hrn-coverage-selection" id="hrn-coverage-selection" aria-live="polite" aria-atomic="true" hidden>
+<div>
+<h3><bdi dir="ltr" id="hrn-coverage-district-name"></bdi><span class="hrn-coverage-status" id="hrn-coverage-status"></span></h3>
+<p class="hrn-coverage-meta" id="hrn-coverage-meta"></p>
+<p class="hrn-coverage-scope" id="hrn-coverage-scope"></p>
+</div>
+<button data-i18n="hrnCoverageClear" type="button" class="hrn-coverage-clear" id="hrn-coverage-clear">Clear selection</button>
+</div>
+</div>
+<div class="hrn-coverage-groups">
+<article class="hrn-coverage-card" data-hrn-coverage-group="primary">
+<h3><span data-i18n="hrnCoveragePrimary" id="hrn-coverage-primary-title">Primary Working Areas</span><span class="hrn-coverage-count" data-hrn-coverage-count="primary"></span></h3>
+<ul class="hrn-coverage-districts" data-hrn-coverage-list="primary"><li><span class="hrn-coverage-chip">Bara</span></li><li><span class="hrn-coverage-chip">Parsa</span></li><li><span class="hrn-coverage-chip">Rautahat</span></li></ul>
+<p data-i18n="hrnCoveragePrimarySummary">Our core focus for community programmes.</p>
+<p class="hrn-coverage-hq"><svg viewBox="-15 -40 30 42" aria-hidden="true" class="hrn-map-hq"><path class="nepal-map-hq-pin" d="M0 0C-4-8-13-15-13-24A13 13 0 0 1 13-24C13-15 4-8 0 0Z"/><circle class="nepal-map-hq-dot" cx="0" cy="-24" r="4.6"/></svg><span><strong data-i18n="headOffice">Head office</strong>: <bdi dir="ltr">Jitpur Simara, Bara · Madhesh Province</bdi></span></p>
+</article>
+<article class="hrn-coverage-card" data-hrn-coverage-group="community">
+<h3><span data-i18n="hrnCoverageCommunity" id="hrn-coverage-community-title">Other Working Areas</span><span class="hrn-coverage-count" data-hrn-coverage-count="community"></span></h3>
+<ul class="hrn-coverage-districts" data-hrn-coverage-list="community"><li><span class="hrn-coverage-chip">Rasuwa</span></li><li><span class="hrn-coverage-chip">Nuwakot</span></li><li><span class="hrn-coverage-chip">Dhading</span></li><li><span class="hrn-coverage-chip">Tanahu</span></li><li><span class="hrn-coverage-chip">Kapilvastu</span></li><li><span class="hrn-coverage-chip">Chitwan</span></li></ul>
+<p data-i18n="hrnCoverageCommunitySummary">Support for selected communities; activities vary by location and project.</p>
+</article>
+<article class="hrn-coverage-card" data-hrn-coverage-group="priority">
+<h3><span data-i18n="hrnCoveragePriority" id="hrn-coverage-priority-title">Expansion priorities</span><span class="hrn-coverage-count" data-hrn-coverage-count="priority"></span></h3>
+<ul class="hrn-coverage-districts" data-hrn-coverage-list="priority"><li><span class="hrn-coverage-chip">Bardiya</span></li><li><span class="hrn-coverage-chip">Banke</span></li><li><span class="hrn-coverage-chip">Rupandehi</span></li><li><span class="hrn-coverage-chip">Nawalparasi West</span></li><li><span class="hrn-coverage-chip">Sarlahi</span></li><li><span class="hrn-coverage-chip">Mahottari</span></li><li><span class="hrn-coverage-chip">Dhanusha</span></li><li><span class="hrn-coverage-chip">Siraha</span></li><li><span class="hrn-coverage-chip">Saptari</span></li><li><span class="hrn-coverage-chip">Sunsari</span></li><li><span class="hrn-coverage-chip">Morang</span></li></ul>
+<p data-i18n="hrnCoveragePrioritySummary">Districts where we aim to expand community support, according to local needs and project arrangements.</p>
+</article>
+</div>
+</div>
+<article class="hrn-coverage-card hrn-coverage-emergency" data-hrn-coverage-group="emergency">
+<h3 data-i18n="hrnCoverageEmergency" id="hrn-coverage-emergency-title">Emergency Response Across Nepal</h3>
+<p data-i18n="hrnCoverageEmergencySummary">Need-based relief for communities affected by floods, disasters and other emergencies anywhere in Nepal.</p>
+</article>
 </div>
 </section>
 <section id="about" class="home-about">
@@ -3280,6 +3427,320 @@ const projectCardTranslations = {
   }
 };
 Object.entries(projectCardTranslations).forEach(([lang, values]) => Object.assign(translations[lang], values));
+</script>
+<script type="application/json" id="hrn-working-areas-data">
+{
+  "primary": [
+    {"id": "nepal-bara", "name": "Bara", "population": 763137, "hq": true},
+    {"id": "nepal-parsa", "name": "Parsa", "population": 654471},
+    {"id": "nepal-rauthat", "name": "Rautahat", "population": 813573}
+  ],
+  "community": [
+    {"id": "nepal-rasuwa", "name": "Rasuwa", "population": 46689},
+    {"id": "nepal-nuwakot", "name": "Nuwakot", "population": 263391},
+    {"id": "nepal-dhading", "name": "Dhading", "population": 325710},
+    {"id": "nepal-tanahun", "name": "Tanahu", "population": 321153},
+    {"id": "nepal-kapilvastu", "name": "Kapilvastu", "population": 682961},
+    {"id": "nepal-chitwan", "name": "Chitwan", "population": 719859}
+  ],
+  "priority": [
+    {"id": "nepal-bardiya", "name": "Bardiya", "population": 459900},
+    {"id": "nepal-banke", "name": "Banke", "population": 603194},
+    {"id": "nepal-rupandehi", "name": "Rupandehi", "population": 1121957},
+    {"id": "nepal-nawalparasiwest", "name": "Nawalparasi West", "population": 386868},
+    {"id": "nepal-sarlahi", "name": "Sarlahi", "population": 862470},
+    {"id": "nepal-mahottari", "name": "Mahottari", "population": 706994},
+    {"id": "nepal-dhanusa", "name": "Dhanusha", "population": 867747},
+    {"id": "nepal-siraha", "name": "Siraha", "population": 739953},
+    {"id": "nepal-saptari", "name": "Saptari", "population": 706255},
+    {"id": "nepal-sunsari", "name": "Sunsari", "population": 926962},
+    {"id": "nepal-morang", "name": "Morang", "population": 1148156}
+  ]
+}
+</script>
+<script id="hrn-working-areas-script">
+(() => {
+  // Only this section's translation keys are added; existing website translations are preserved.
+  const coverageTranslations = {
+  "en": {
+    "hrnCoverageEyebrow": "Our community programmes",
+    "hrnCoverageTitle": "HRN Working Areas",
+    "hrnCoverageIntro": "Our community programmes focus on Bara, Parsa and Rautahat, alongside support for selected communities in other districts. Emergency relief extends across Nepal according to assessed needs.",
+    "hrnCoveragePrimary": "Primary Working Areas",
+    "hrnCoveragePrimarySummary": "Our core focus for community programmes.",
+    "hrnCoverageCommunity": "Other Working Areas",
+    "hrnCoverageCommunitySummary": "Support for selected communities; activities vary by location and project.",
+    "hrnCoverageEmergency": "Emergency Response Across Nepal",
+    "hrnCoverageEmergencySummary": "Need-based relief for communities affected by floods, disasters and other emergencies anywhere in Nepal.",
+    "hrnCoveragePriority": "Expansion priorities",
+    "hrnCoveragePrioritySummary": "Districts where we aim to expand community support, according to local needs and project arrangements.",
+    "hrnCoverageChoose": "Select a district on the map or in the lists to see details.",
+    "hrnCoverageLegendRest": "Rest of Nepal · emergency response",
+    "hrnCoverageMapLabel": "Map of HRN working areas in Nepal",
+    "hrnCoverageCount": "{n} districts",
+    "hrnCoverageProvince": "{p} Province",
+    "hrnCoveragePopulation": "Population (2021 census)",
+    "hrnCoveragePrimaryDetail": "A primary focus for HRN community programmes, with activities organised around the needs of selected communities.",
+    "hrnCoverageCommunityDetail": "HRN supports selected communities in this district. Programme coverage varies by location and project.",
+    "hrnCoveragePriorityDetail": "A priority district for expanding community support. Activities depend on local needs and project arrangements.",
+    "hrnCoverageHqNote": "Home of our head office in Jitpur Simara.",
+    "hrnCoverageClear": "Clear selection"
+  },
+  "ar": {
+    "hrnCoverageEyebrow": "برامجنا المجتمعية",
+    "hrnCoverageTitle": "مناطق عمل هيومن ريليف نيبال",
+    "hrnCoverageIntro": "تركّز برامجنا المجتمعية على بارا وبارسا وروتاهات، إلى جانب دعم مجتمعات محددة في مقاطعات أخرى. وتشمل الإغاثة الطارئة أنحاء نيبال وفقاً للاحتياجات التي يتم تقييمها.",
+    "hrnCoveragePrimary": "مناطق العمل الرئيسية",
+    "hrnCoveragePrimarySummary": "المحور الرئيسي لبرامجنا المجتمعية.",
+    "hrnCoverageCommunity": "مناطق العمل الأخرى",
+    "hrnCoverageCommunitySummary": "دعم مجتمعات محددة؛ وتختلف الأنشطة بحسب الموقع والمشروع.",
+    "hrnCoverageEmergency": "الاستجابة للطوارئ في أنحاء نيبال",
+    "hrnCoverageEmergencySummary": "إغاثة وفقاً للاحتياجات للمجتمعات المتضررة من الفيضانات والكوارث والطوارئ الأخرى في أي مكان في نيبال.",
+    "hrnCoveragePriority": "أولويات التوسع",
+    "hrnCoveragePrioritySummary": "مقاطعات نسعى إلى توسيع الدعم المجتمعي فيها وفقاً للاحتياجات المحلية وترتيبات المشاريع.",
+    "hrnCoverageChoose": "اختر مقاطعة على الخريطة أو من القوائم لعرض التفاصيل.",
+    "hrnCoverageLegendRest": "بقية نيبال · الاستجابة للطوارئ",
+    "hrnCoverageMapLabel": "خريطة مناطق عمل هيومن ريليف نيبال",
+    "hrnCoverageCount": "المقاطعات: {n}",
+    "hrnCoverageProvince": "إقليم {p}",
+    "hrnCoveragePopulation": "عدد السكان (تعداد ٢٠٢١)",
+    "hrnCoveragePrimaryDetail": "محور رئيسي للبرامج المجتمعية للمنظمة، مع تنظيم الأنشطة وفقاً لاحتياجات مجتمعات محددة.",
+    "hrnCoverageCommunityDetail": "تدعم المنظمة مجتمعات محددة في هذه المقاطعة. ويختلف نطاق البرامج بحسب الموقع والمشروع.",
+    "hrnCoveragePriorityDetail": "مقاطعة ذات أولوية لتوسيع الدعم المجتمعي. وتعتمد الأنشطة على الاحتياجات المحلية وترتيبات المشاريع.",
+    "hrnCoverageHqNote": "يقع فيها مكتبنا الرئيسي في جيتبور سيمارا.",
+    "hrnCoverageClear": "مسح الاختيار"
+  },
+  "tr": {
+    "hrnCoverageEyebrow": "Toplum odaklı programlarımız",
+    "hrnCoverageTitle": "HRN Çalışma Alanları",
+    "hrnCoverageIntro": "Toplum odaklı programlarımız Bara, Parsa ve Rautahat’a yoğunlaşırken diğer ilçelerdeki belirli topluluklara da destek sunar. Acil yardım, değerlendirilen ihtiyaçlara göre Nepal genelini kapsar.",
+    "hrnCoveragePrimary": "Ana Çalışma Alanları",
+    "hrnCoveragePrimarySummary": "Toplum odaklı programlarımızın ana çalışma alanları.",
+    "hrnCoverageCommunity": "Diğer Çalışma Alanları",
+    "hrnCoverageCommunitySummary": "Belirli topluluklara destek; faaliyetler yerleşim yerine ve projeye göre değişir.",
+    "hrnCoverageEmergency": "Nepal Genelinde Acil Yardım",
+    "hrnCoverageEmergencySummary": "Nepal’in herhangi bir yerinde sel, afet ve diğer acil durumlardan etkilenen topluluklara ihtiyaç temelli yardım.",
+    "hrnCoveragePriority": "Genişleme öncelikleri",
+    "hrnCoveragePrioritySummary": "Yerel ihtiyaçlara ve proje düzenlemelerine göre toplum desteğini genişletmeyi hedeflediğimiz ilçeler.",
+    "hrnCoverageChoose": "Ayrıntıları görmek için haritadan veya listelerden bir ilçe seçin.",
+    "hrnCoverageLegendRest": "Nepal’in geri kalanı · acil yardım",
+    "hrnCoverageMapLabel": "Nepal’de HRN çalışma alanları haritası",
+    "hrnCoverageCount": "{n} ilçe",
+    "hrnCoverageProvince": "{p} Eyaleti",
+    "hrnCoveragePopulation": "Nüfus (2021 sayımı)",
+    "hrnCoveragePrimaryDetail": "HRN’nin toplum odaklı programları için ana çalışma alanıdır. Faaliyetler, belirli toplulukların ihtiyaçlarına göre düzenlenir.",
+    "hrnCoverageCommunityDetail": "HRN bu ilçedeki belirli topluluklara destek sağlar. Programların kapsamı, yerleşim yerine ve projeye göre değişir.",
+    "hrnCoveragePriorityDetail": "Toplum desteğini genişletmek için öncelikli bir ilçedir. Faaliyetler yerel ihtiyaçlara ve proje düzenlemelerine bağlıdır.",
+    "hrnCoverageHqNote": "Genel merkezimiz Jitpur Simara’da bulunmaktadır.",
+    "hrnCoverageClear": "Seçimi temizle"
+  }
+};
+  Object.entries(coverageTranslations).forEach(([language, values]) => {
+    if (typeof translations !== 'undefined' && translations[language]) Object.assign(translations[language], values);
+  });
+
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  // Primary districts are small and side by side, so their labels sit outside with a short leader line.
+  const labelOffsets = {
+    'nepal-bara': [0, 92], 'nepal-parsa': [-118, 78], 'nepal-rauthat': [96, 70],
+    'nepal-rasuwa': [12, -38], 'nepal-nuwakot': [80, 28], 'nepal-dhading': [-14, 6], 'nepal-tanahun': [-20, -38],
+    'nepal-kapilvastu': [-20, 40], 'nepal-chitwan': [-48, 26]
+  };
+
+  function setupCoverage() {
+    const root = document.getElementById('hrn-working-areas');
+    if (!root) return;
+    const groups = JSON.parse(document.getElementById('hrn-working-areas-data').textContent);
+    const selection = root.querySelector('#hrn-coverage-selection');
+    const prompt = root.querySelector('#hrn-coverage-prompt');
+    const name = root.querySelector('#hrn-coverage-district-name');
+    const status = root.querySelector('#hrn-coverage-status');
+    const meta = root.querySelector('#hrn-coverage-meta');
+    const scope = root.querySelector('#hrn-coverage-scope');
+    const groupKeys = {primary: 'Primary', community: 'Community', priority: 'Priority'};
+    const chips = new Map();   // id -> chip button
+    const shapes = new Map();  // id -> map path
+    const entries = new Map(); // id -> {district, group}
+    let selected = null;
+
+    const language = () => coverageTranslations[document.documentElement.lang] ? document.documentElement.lang : 'en';
+    const label = key => coverageTranslations[language()][key];
+    const formatNumber = n => new Intl.NumberFormat({en:'en-US', ar:'ar-EG', tr:'tr-TR'}[language()]).format(n);
+
+    for (const [group, list] of Object.entries(groups)) list.forEach(district => entries.set(district.id, {district, group}));
+
+    // ---- Map: reuse the district shapes already on the page ----
+    const sourceSvg = document.getElementById('nepal-map-svg');
+    const mapWrap = root.querySelector('#hrn-coverage-mapwrap');
+    let mapSvg = null;
+    if (sourceSvg && mapWrap) {
+      mapSvg = document.createElementNS(SVG_NS, 'svg');
+      mapSvg.setAttribute('class', 'hrn-coverage-map');
+      mapSvg.setAttribute('viewBox', sourceSvg.getAttribute('viewBox') || '20 30 1185 735');
+      mapSvg.setAttribute('role', 'group');
+      mapSvg.dataset.i18nAriaLabel = 'hrnCoverageMapLabel';
+      const shapesLayer = document.createElementNS(SVG_NS, 'g');
+      const labelLayer = document.createElementNS(SVG_NS, 'g');
+      labelLayer.setAttribute('aria-hidden', 'true');
+
+      sourceSvg.querySelectorAll('path.nepal-district').forEach(source => {
+        const path = document.createElementNS(SVG_NS, 'path');
+        path.setAttribute('d', source.getAttribute('d'));
+        path.setAttribute('class', 'hrn-map-district');
+        const entry = entries.get(source.id);
+        if (entry) {
+          entry.province = source.dataset.province || '';
+          path.dataset.group = entry.group;
+          path.setAttribute('tabindex', '0');
+          path.setAttribute('role', 'button');
+          path.setAttribute('aria-pressed', 'false');
+          path.setAttribute('aria-label', entry.district.name);
+          const title = document.createElementNS(SVG_NS, 'title');
+          title.textContent = entry.district.name;
+          path.append(title);
+          path.addEventListener('click', () => select(source.id));
+          path.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(source.id); }
+          });
+          path.addEventListener('mouseenter', () => chips.get(source.id)?.classList.add('is-preview'));
+          path.addEventListener('mouseleave', () => chips.get(source.id)?.classList.remove('is-preview'));
+          shapes.set(source.id, path);
+        } else {
+          path.setAttribute('aria-hidden', 'true');
+        }
+        shapesLayer.append(path);
+      });
+
+      // Labels for primary and other working areas, using the census map's label positions.
+      sourceSvg.querySelectorAll('text.nepal-map-label').forEach(text => {
+        const id = text.dataset.districtId;
+        const entry = entries.get(id);
+        if (!entry || entry.group === 'priority') return;
+        const x = parseFloat(text.getAttribute('x')), y = parseFloat(text.getAttribute('y'));
+        const [dx, dy] = labelOffsets[id] || [0, 0];
+        if (entry.group === 'primary') {
+          const line = document.createElementNS(SVG_NS, 'line');
+          line.setAttribute('class', 'hrn-map-leader');
+          line.setAttribute('x1', x); line.setAttribute('y1', y);
+          line.setAttribute('x2', x + dx * .8); line.setAttribute('y2', y + dy * .8);
+          labelLayer.append(line);
+        }
+        const out = document.createElementNS(SVG_NS, 'text');
+        out.setAttribute('class', 'hrn-map-label');
+        out.dataset.group = entry.group;
+        out.setAttribute('x', x + dx); out.setAttribute('y', y + dy);
+        out.textContent = entry.district.name;
+        labelLayer.append(out);
+      });
+
+      mapSvg.append(shapesLayer, labelLayer);
+
+      // Head office pin, copied from the census map.
+      const hq = sourceSvg.querySelector('.nepal-map-hq');
+      if (hq) {
+        const pin = hq.cloneNode(true);
+        pin.setAttribute('class', 'hrn-map-hq');
+        mapSvg.append(pin);
+      }
+      mapWrap.append(mapSvg);
+      root.querySelector('#hrn-coverage-legend').hidden = false;
+    }
+
+    // ---- Lists: turn static chips into buttons ----
+    for (const [group, list] of Object.entries(groups)) {
+      const listEl = root.querySelector('[data-hrn-coverage-list="' + group + '"]');
+      if (!listEl) continue;
+      listEl.setAttribute('aria-labelledby', 'hrn-coverage-' + group + '-title');
+      const fragment = document.createDocumentFragment();
+      list.forEach(district => {
+        const item = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'hrn-coverage-chip';
+        button.textContent = district.name;
+        button.dir = 'ltr';
+        button.dataset.hrnCoverageDistrict = district.id;
+        button.setAttribute('aria-pressed', 'false');
+        button.setAttribute('aria-controls', 'hrn-coverage-selection');
+        button.addEventListener('click', () => {
+          if (selected === district.id) clear(); else select(district.id, true);
+        });
+        button.addEventListener('mouseenter', () => shapes.get(district.id)?.classList.add('is-preview'));
+        button.addEventListener('mouseleave', () => shapes.get(district.id)?.classList.remove('is-preview'));
+        chips.set(district.id, button);
+        item.append(button);
+        fragment.append(item);
+      });
+      listEl.replaceChildren(fragment);
+    }
+
+    function refreshCounts() {
+      root.querySelectorAll('[data-hrn-coverage-count]').forEach(el => {
+        const list = groups[el.dataset.hrnCoverageCount] || [];
+        el.textContent = label('hrnCoverageCount').replace('{n}', formatNumber(list.length));
+      });
+    }
+
+    function refreshSelection() {
+      refreshCounts();
+      if (!selected) return;
+      const {district, group, province} = entries.get(selected);
+      const titleKey = 'hrnCoverage' + groupKeys[group];
+      name.textContent = district.name;
+      status.textContent = label(titleKey);
+      status.dataset.group = group;
+      const parts = [];
+      if (province) parts.push(label('hrnCoverageProvince').replace('{p}', province));
+      parts.push(label('hrnCoveragePopulation') + ': ' + formatNumber(district.population));
+      meta.textContent = parts.join(' · ');
+      scope.textContent = label(titleKey + 'Detail') + (district.hq ? ' ' + label('hrnCoverageHqNote') : '');
+    }
+
+    function mark(id, on) {
+      chips.get(id)?.setAttribute('aria-pressed', String(on));
+      const shape = shapes.get(id);
+      if (shape) { shape.classList.toggle('is-selected', on); shape.setAttribute('aria-pressed', String(on)); }
+      // Draw the selected district on top so its outline is not hidden by neighbours.
+      if (on && shape) shape.parentNode.append(shape);
+    }
+
+    function select(id, fromChip) {
+      if (selected) mark(selected, false);
+      selected = id;
+      mark(id, true);
+      refreshSelection();
+      prompt.hidden = true;
+      selection.hidden = false;
+      // On narrow screens the map sits above the lists; bring it into view after a chip tap.
+      if (fromChip && mapSvg && window.matchMedia('(max-width: 900px)').matches) {
+        const box = mapSvg.getBoundingClientRect();
+        if (box.bottom < 0 || box.top > window.innerHeight) mapSvg.scrollIntoView({behavior: 'smooth', block: 'center'});
+      }
+    }
+
+    function clear() {
+      const previous = selected;
+      if (previous) mark(previous, false);
+      selected = null;
+      selection.hidden = true;
+      prompt.hidden = false;
+      if (previous) chips.get(previous)?.focus();
+    }
+
+    root.querySelector('#hrn-coverage-clear').addEventListener('click', clear);
+
+    // Start with the head office district selected so the panel is never empty.
+    const start = Object.values(groups).flat().find(d => d.hq);
+    if (start) select(start.id); else prompt.hidden = false;
+    if (mapSvg) mapSvg.setAttribute('aria-label', label('hrnCoverageMapLabel'));
+
+    // Language changes refresh only this section's dynamic text.
+    new MutationObserver(refreshSelection).observe(document.documentElement, {attributes: true, attributeFilter: ['lang']});
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setupCoverage);
+  else setupCoverage();
+})();
 </script>
 </body>
 </html>
