@@ -3236,7 +3236,7 @@ window.HRN_UPDATES = [
   const list=document.getElementById('update-list');
   const note=section.querySelector('.activities-preview-note');
   const links=document.querySelectorAll('[data-updates-link]');
-  let preview=location.protocol==='file:';
+  let preview=true; // show example drafts everywhere (set to location.protocol==='file:' to hide drafts on the live site)
   try{preview=preview||new URLSearchParams(location.search).get('preview')==='updates';}catch(e){}
   const pick=(o,l)=>typeof o==='string'?o:(o&&(o[l]||o.en)||'');
   const localNow=new Date();
